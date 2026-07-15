@@ -3,14 +3,19 @@ import { defineConfig, fontProviders } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://machonshilo.org",
   prerenderConflictBehavior: "error",
+
   vite: {
     plugins: [tailwindcss()],
   },
+
   prefetch: true,
+
   i18n: {
     locales: ["en", "he"],
     defaultLocale: "en",
@@ -18,6 +23,7 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+
   fonts: [
     {
       provider: fontProviders.local(),
@@ -34,4 +40,6 @@ export default defineConfig({
       },
     },
   ],
+
+  adapter: cloudflare(),
 });
