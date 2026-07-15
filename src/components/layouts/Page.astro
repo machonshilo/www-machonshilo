@@ -1,0 +1,30 @@
+---
+import Base from "@/components/layouts/Base.astro";
+import Link from "@/components/Link.astro";
+import Header from "@/components/ui/Header.astro";
+import Footer from "@/components/ui/Footer.astro";
+
+interface Props {
+    title: string;
+}
+
+const { title, ...rest } = Astro.props;
+
+const lang = Astro.currentLocale ?? "en";
+
+const props = {
+    en: { skipLink: "Skip to main content" },
+    he: { skipLink: "" },
+}[lang];
+---
+
+<Base title={`${Astro.props.title} | Machon Shilo`} {...rest}>
+    <Link href="#content" class="skip-link">
+        {props.skipLink}
+    </Link>
+    <Header />
+    <main id="content">
+        <slot />
+    </main>
+    <Footer />
+</Base>

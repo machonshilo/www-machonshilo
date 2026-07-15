@@ -1,0 +1,86 @@
+{
+  "id": "org.machonshilo",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0d3b66",
+
+  "categories": ["education", "books", "religion"],
+
+  "language": "he",
+  "direction": "rtl",
+
+  "title": {
+    "he": {
+      "value": "מכון שילה",
+      "lang": "he-IL",
+      "dir": "rtl"
+    },
+    "en": {
+      "value": "Machon Shilo",
+      "lang": "en-US",
+      "dir": "ltr"
+    }
+  },
+
+  "name": {
+    "he": {
+      "value": "מכון שילה - להשבת תורת ארץ ישראל",
+      "lang": "he-IL",
+      "dir": "rtl"
+    },
+    "en": {
+      "value": "Machon Shilo - Shilo Institute",
+      "lang": "en-US",
+      "dir": "ltr"
+    }
+  },
+
+  "description": {
+    "he": {
+      "value": "מכון מחקר והסברה המקדם את תורת ארץ ישראל ופסיקת ההלכה המקורית.",
+      "lang": "he-IL",
+      "dir": "rtl"
+    },
+    "en": {
+      "value": "An institute dedicated to the restoration of the Torah of Eretz Yisrael and early Halakhic traditions.",
+      "lang": "en-US",
+      "dir": "ltr"
+    }
+  },
+
+  "icons": [
+    {
+      "src": "/images/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/images/screenshots/home-he.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": {
+        "he": {
+          "value": "מסך הבית - מכון שילה",
+          "lang": "he-IL"
+        },
+        "en": {
+          "value": "Home Screen - Machon Shilo",
+          "lang": "en-US"
+        }
+      }
+    }
+  ]
+}

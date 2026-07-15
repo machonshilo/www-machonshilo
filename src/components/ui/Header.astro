@@ -1,0 +1,22 @@
+---
+const lang = Astro.currentLocale ?? "en";
+
+const props = {
+    en: { links: [{ href: "/", text: "Home" }] },
+    he: { links: [{ href: "/", text: "בית " }] },
+}[lang];
+---
+
+<header>
+    <ul>
+        {
+            props.links.map((link) => {
+                return (
+                    <li>
+                        <a href={link.href}>{link.text}</a>
+                    </li>
+                );
+            })
+        }
+    </ul>
+</header>

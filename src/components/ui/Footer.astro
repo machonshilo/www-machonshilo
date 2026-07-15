@@ -1,0 +1,51 @@
+---
+const lang = Astro.currentLocale ?? "en";
+
+const languages = {
+    en: "English",
+    he: "עברית",
+};
+
+const { pathname } = Astro.url;
+
+function getLocalizedPath(targetLang: string) {
+    const segments = pathname.split("/");
+
+    if (segments[1] === lang) {
+        // If the path already starts with the current locale (e.g., /en/blog)
+        segments[1] = targetLang;
+    } else {
+        // If the current URL has no locale prefix (e.g., default root /blog)
+        segments.splice(1, 0, targetLang);
+    }
+
+    return segments.join("/") || "/";
+}
+---
+
+<footer>
+    <select id="language-switcher">
+        {
+            Object.entries(languages).map(([locale, label]) => (
+                <option
+                    value={getLocalizedPath(locale)}
+                    selected={locale === lang}
+                >
+                    {label}
+                </option>
+            ))
+        }
+    </select>
+</footer>
+
+<script>
+    const select = document.getElementById(
+        "language-switcher",
+    ) as HTMLSelectElement;
+    if (select) {
+        select.addEventListener("change", (event) => {
+            const target = event.target as HTMLSelectElement;
+            window.location.href = target.value;
+        });
+    }
+</script>

@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import Page from "@/components/layouts/Page.astro";
+
+export function getStaticPaths() {
+    return [{ params: { lang: "en" } }, { params: { lang: "he" } }];
+}
+
+const entries = await getCollection("blog", ({ id }) => {
+    return id.startsWith(Astro.params.lang);
+});
+
+const lang = Astro.currentLocale ?? "en";
+
+const props = {
+    en: { title: "Blog" },
+    he: { title: "בלוג" },
+}[lang];
+---
+
+<Page title={props.title}>
+    <h1>My posts</h1>
+    <ul>
+        {
+            entries.map((entry) => {
+                // Split the ID (e.g., "en/post-1" becomes ["en", "post-1"])
+                const [postLang, postSlug] = entry.id.split("/");
+
+                return (
+                    <li>
+                        <a href={`/${postLang}/blog/${postSlug}`}>
+                            {entry.data.title} (Language: {postLang})
+                        </a>
+                    </li>
+                );
+            })
+        }
+    </ul>
+</Page>
