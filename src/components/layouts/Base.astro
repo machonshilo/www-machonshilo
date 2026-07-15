@@ -1,0 +1,19 @@
+---
+import "@/assets/css/global.css";
+
+const lang = Astro.currentLocale ?? "en";
+
+const props = {
+    en: { siteName: "Machon Shilo" },
+    he: { siteName: "מכון שילה" },
+}[lang];
+---
+
+<html lang={lang} dir={lang == "he" ? "rtl" : undefined}>
+    <head>
+        <title>Title</title>
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>

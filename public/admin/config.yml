@@ -1,0 +1,571 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+app_title: Machon Shilo CMS
+
+backend:
+  name: github
+  repo: machonshilo/www
+  skip_ci: true
+
+editor:
+  preview: false
+
+i18n:
+  structure: multiple_folders
+  locales: [en, he]
+
+logo:
+  src: /favicon.svg
+
+media_folder: /src/assets
+
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+  # cloudflare_r2:
+  #   access_key_id: c3cd7b8dbdfed9d2a8919f384e61cadc
+  #   bucket: ms-files
+  #   account_id: 653b9b6db3281948110d77ac4f681750
+  #   public_url: r2.machonshilo.org
+  #   prefix: cms-uploads/
+
+output:
+  omit_empty_optional_fields: true
+
+#####################################################################
+# COLLECTIONS: pages, triennial, blog, classes, documents, responsa #
+# RELATIONS: tags, topics, seasons, series, authors                 #
+# SINGLETONS: banner, calendar, settings                            #
+#####################################################################
+
+collections:
+  ##############
+  # DEFINTIONS #
+  ##############
+  - name: definitions
+    folder: ""
+    hide: true
+    fields:
+      - &slug_id
+        name: slug_id
+        i18n: duplicate
+        label: Slug
+        widget: string
+      - &title
+        name: title
+        i18n: true
+        label: Title
+        widget: string
+      - &description
+        name: description
+        i18n: true
+        label: Description
+        widget: text
+        required: false # REMOVE
+
+      - &notes # ADDED
+        name: notes
+        i18n: duplicate
+        label: Notes
+        widget: richtext
+        required: false
+
+      - &grouping
+        name: grouping
+        i18n: duplicate
+        label: Grouping
+        widget: relation
+        collection: reading_groups
+        display_fields: ["({{order}}) {{title}}"]
+      - &before
+        name: before
+        i18n: true
+        label: Before
+        required: false
+        widget: string
+      - &after
+        name: after
+        i18n: true
+        label: After
+        required: false
+        widget: string
+      - &order
+        name: order
+        i18n: duplicate
+        label: Order
+        required: false
+        widget: number
+        min: 1
+      - &scroll
+        name: scroll
+        i18n: true
+        label: Scroll
+        widget: list
+        fields:
+          - name: book
+            i18n: duplicate
+            label: Book
+            widget: relation
+            collection: books
+            display_fields: ["({{order}}) {{title}}"]
+          - *before
+          - *after
+          - name: section
+            i18n: true
+            label: Section
+            widget: list
+            fields:
+              - name: start_ch
+                i18n: duplicate
+                label: Start (chapter)
+                widget: number
+                min: 1
+              - name: start_vs
+                i18n: duplicate
+                label: Start (verse)
+                widget: number
+                min: 1
+              - name: end_ch
+                i18n: duplicate
+                label: End (chapter)
+                widget: number
+                min: 1
+              - name: end_vs
+                i18n: duplicate
+                label: End (verse)
+                widget: number
+                min: 1
+              - *before
+              - *after
+
+      - &original_languages # ADDED
+        name: original_languages
+        default: [en]
+        i18n: duplicate
+        label: Original language(s)
+        widget: select
+        options: [en, he]
+        multiple: true
+      - &ai_translation
+        name: ai_translation
+        i18n: true
+        label: AI translation
+        widget: boolean
+      - &status
+        name: status
+        default: published # CHANGE TO DRAFT
+        i18n: duplicate
+        label: Status
+        widget: select
+        options: [draft, published, archived]
+      - &date_created
+        name: date_created
+        i18n: duplicate
+        widget: datetime # REMOVE
+        default: 2010-05-09 # REMOVE
+        label: Date created
+        type: date # REMOVE
+        # default: "{{datetime}}" # UNDO
+        # widget: hidden # UNDO
+      - &date_updated
+        name: date_updated
+        i18n: duplicate
+        default: "{{now}}"
+        label: Date updated
+        widget: datetime
+      - &featured_image
+        name: featured_image
+        i18n: duplicate
+        label: Featured image
+        widget: image
+        required: false # REMOVE
+
+      - &tags
+        name: tags
+        i18n: duplicate
+        label: Tags
+        required: false
+        widget: relation
+        collection: tags
+        multiple: true
+      - &topics
+        name: topics
+        i18n: duplicate
+        label: Topics
+        required: false
+        widget: relation
+        collection: topics
+        multiple: true
+      - &season
+        name: season
+        i18n: duplicate
+        label: Season
+        required: false
+        widget: relation
+        collection: seasons
+      - &author
+        name: author
+        default: rabbi-david-bar-hayim
+        i18n: duplicate
+        label: Author
+        required: false
+        widget: relation
+        collection: authors
+
+      - &attachments
+        name: attachments
+        i18n: duplicate
+        label: Attachments
+        required: false
+        widget: relation
+        collection: documents
+        multiple: true
+      - &gallery
+        name: gallery
+        i18n: duplicate
+        label: Gallery
+        required: false
+        widget: image
+        multiple: true
+
+      - &audio
+        name: audio
+        i18n: duplicate
+        label: Audio
+        required: false
+        widget: string
+      - &video
+        name: video
+        i18n: true
+        label: Video
+        required: false
+        widget: string
+      - &length_minutes
+        name: length_minutes
+        i18n: duplicate
+        label: Length (minutes)
+        widget: number
+        min: 1
+        required: false # REMOVE
+      - &transcript
+        name: transcript
+        i18n: true
+        label: Transcript
+        required: false
+        widget: richtext
+
+      - &url
+        name: url
+        i18n: true
+        label: URL
+        required: false
+        widget: string
+        type: url
+      - &responsum
+        name: responsum
+        i18n: true
+        label: Responsum
+        widget: object
+        fields:
+          - name: question
+            i18n: true
+            label: Question
+            widget: richtext
+          - name: answer
+            i18n: true
+            label: Answer
+            widget: richtext
+          - name: follow_up # ADDED!
+            i18n: true
+            label: Follow up
+            widget: richtext
+            required: false
+          - name: answer_summary
+            i18n: true
+            label: Answer (summary)
+            required: false
+            widget: string
+
+      - &body
+        name: body
+        i18n: true
+        label: Body
+        widget: richtext
+
+  ###############
+  # COLLECTIONS #
+  ###############
+
+  - name: pages
+    description: Static website content like About Us, Mission, or contact information.
+    extension: mdx
+    folder: /src/content/pages
+    i18n: true
+    icon: article
+    label: Pages
+    label_singular: Page
+    identifier_field: slug_id
+    fields:
+      - *slug_id
+      - *title
+      - *description
+      - *body
+      - *notes
+
+  - name: triennial
+    description: Textual data for the Triennial cycle (Pesukim for Torah and Navi readings).
+    folder: /src/content/triennial
+    format: json
+    i18n: true
+    icon: book_2
+    label: Triennial readings
+    label_singular: Triennial reading
+    fields:
+      - *title
+      - *grouping
+      - *scroll
+      - *notes
+
+  - divider: true
+
+  - name: blog
+    description: Articles, essays, and Torah thoughts written by the Machon Shilo team.
+    folder: /src/content/blog
+    i18n: true
+    icon: edit_note
+    label: Blog
+    summary: "[{{date | date('YYYY-MM-DD')}}] **{{title}}** `{{status}}` ({{notes}})"
+    fields:
+      - *notes
+      - *original_languages
+      - *ai_translation
+      - *title
+      - *date_created
+      - *body
+      - *status
+      - *date_updated
+      - *featured_image
+      - *description
+      - *tags
+      - *attachments
+      - *gallery
+      # - *ai_translation
+      # - *title
+      # - *status
+      # - *date_created
+      # - *date_updated
+      # - *featured_image
+      # - *description
+      # - *tags
+      # - *body
+      # - *attachments
+      # - *gallery
+
+  - name: classes
+    description: Archives of Torah classes, including video recordings and transcripts.
+    folder: /src/content/classes
+    i18n: true
+    icon: school
+    label: Classes
+    label_singular: Class
+    sortable_fields: [title, date_created, date_updated]
+    summary: "**{{title}}** ({{date_created | date('YYYY-MM-DD')}})"
+    fields:
+      - *ai_translation
+      - *title
+      - *date_created
+      - *body
+      - *audio
+      - *notes
+      - *attachments
+      - *original_languages
+      - *status
+      - *date_updated
+      - *author
+      - *featured_image
+      - *description
+      - *tags
+      - *topics
+      - *season
+      - *video
+      - *length_minutes
+      - *transcript
+      # - *title
+      # - *original_languages
+      # - *ai_translation
+      # - *status
+      # - *date_created
+      # - *date_updated
+      # - *author
+      # - *featured_image
+      # - *description
+      # - *body
+      # - *notes
+      # - *tags
+      # - *topics
+      # - *season
+      # - *attachments
+      # - *audio
+      # - *video
+      # - *length_minutes
+      # - *transcript
+
+  - name: documents
+    description: Files, PDFs, and source sheets for public download or reference.
+    folder: /src/content/documents
+    format: json
+    i18n: true
+    icon: document_scanner
+    label: Documents
+    label_singular: Document
+    fields:
+      - *notes
+      - *original_languages
+      - *ai_translation
+      - *title
+      - *date_created
+      - *date_updated
+      - *author
+      - *description
+      - <<: *body
+        required: false
+      - *tags
+      - *topics
+      - *season
+      - <<: *attachments
+        i18n: true
+        required: true
+        widget: file
+      - *transcript
+
+  - name: responsa
+    description: Halachic rulings and audio Q&A sessions addressing specific inquiries.
+    folder: /src/content/responsa
+    format: json
+    i18n: true
+    icon: person_raised_hand
+    label: Responsa
+    label_singular: Responsum
+    sortable_fields: [title, date_created, date_updated]
+    fields:
+      - *ai_translation
+      - *title
+      - *date_created
+      - *responsum
+      - *original_languages
+      - *status
+      - *date_updated
+      - *author
+      - *description
+      - *notes
+      - *tags
+      - *topics
+      - *season
+      - *url
+      # - *ai_translation
+      # - *title
+      # - *date_created
+      # - *date_updated
+      # - *author
+      # - *description
+      # - *tags
+      # - *topics
+      # - *season
+      # - *url
+      # - *responsum
+
+  - divider: true
+
+  #############
+  # RELATIONS #
+  #############
+
+  - name: tags
+    description: Generic labels for content status or meta-categories (e.g., 'New', 'Announcement', 'Upcoming').
+    folder: /src/content/relations/tags
+    format: json
+    i18n: true
+    icon: label
+    label: Tags
+    label_singular: Tag
+    fields:
+      - *title
+
+  - name: topics
+    description: Subject-matter themes (e.g., 'Tzitzit', 'Kashrut', 'Prayer').
+    folder: /src/content/relations/topics
+    format: json
+    i18n: true
+    icon: topic
+    label: Topics
+    label_singular: Topic
+    fields:
+      - *title
+
+  - name: seasons
+    description: Calendrical or festive timeframes (e.g., 'Hanukkah', 'Pesach').
+    folder: /src/content/relations/seasons
+    format: json
+    i18n: true
+    icon: calendar_month
+    label: Series
+    fields:
+      - *title
+
+  - name: authors
+    description: Contributors, Rabbis, or teachers credited with content.
+    folder: /src/content/relations/authors
+    format: json
+    i18n: true
+    icon: person
+    label: Authors
+    label_singular: Author
+    fields:
+      - *title
+
+  - name: books
+    folder: /src/content/relations/books
+    format: json
+    hide: true
+    i18n: true
+    fields:
+      - *title
+      - <<: *order
+        value_type: float
+
+  - name: reading_groups
+    folder: /src/content/relations/reading_groups
+    format: json
+    hide: true
+    i18n: true
+    fields:
+      - *title
+      - *order
+
+##############
+# SINGLETONS #
+##############
+
+singletons:
+  - name: banner
+    file: /public/banners.json
+    i18n: true
+    icon: image_inset
+    label: Banner
+    fields:
+      - *title
+
+  - name: calendar
+    file: /public/calendar.json
+    icon: calendar_clock
+    label: Calendar
+    fields:
+      - *title
+
+  - name: settings
+    file: /src/content/settings.json
+    icon: settings
+    label: Settings
+    fields:
+      - *title
