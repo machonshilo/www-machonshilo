@@ -5,17 +5,15 @@
     --font-frank: var(--font-frank);
 }
 
-a[target="_blank"]::after {
-    content: " ↗";
-    font-size: 0.8em;
-    padding-left: 3px;
+@theme {
+    --color-background: oklch(0.97 0.02 80);
+    --color-foreground: oklch(0.24 0.015 65);
 }
 
-.skip-link {
-    position: absolute;
-    top: -3em;
-    background: white;
+body {
+    @apply font-frank bg-background text-foreground text-lg;
 }
-.skip-link:focus {
-    top: 0;
+
+a[target="_blank"]::after {
+    content: " ↗";
 }

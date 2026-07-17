@@ -1,22 +1,35 @@
 ---
+import Link from "@/components/Link.astro";
+
 const lang = Astro.currentLocale ?? "en";
 
-const props = {
-    en: { links: [{ href: "/", text: "Home" }] },
-    he: { links: [{ href: "/", text: "בית " }] },
-}[lang];
+const translations = {
+    en: {
+        links: [
+            { href: "/en", text: "Home" },
+            { href: "/en/blog", text: "Blog" },
+            { href: "/en/community", text: "Community" },
+            { href: "/en/triennial", text: "Triennial Cycle" },
+            { href: "/en/classes", text: "Classes" },
+        ],
+    },
+    he: {
+        links: [
+            { href: "/he", text: "בית" },
+            { href: "/he/blog", text: "בלוג" },
+            { href: "/he/community", text: "קהילה" },
+            { href: "/he/triennial", text: "מחזור תלת שנתי" },
+            { href: "/he/classes", text: "שיעורים" },
+        ],
+    },
+};
+
+const props =
+    translations[lang as keyof typeof translations] ?? translations.en;
 ---
 
 <header>
-    <ul>
-        {
-            props.links.map((link) => {
-                return (
-                    <li>
-                        <a href={link.href}>{link.text}</a>
-                    </li>
-                );
-            })
-        }
-    </ul>
+    <nav class="flex flex-col sm:flex-row sm:gap-4 pb-1">
+        {props.links.map((link) => <Link href={link.href}>{link.text}</Link>)}
+    </nav>
 </header>

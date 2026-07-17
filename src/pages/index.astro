@@ -1,9 +1,12 @@
 ---
 import Base from "@/components/layouts/Base.astro";
 import Link from "@/components/Link.astro";
+import Logo from "@/assets/svg/favicon.svg";
 ---
 
-<Base title={"Machon Shilo"}>
-    <Link href="/en"> English </Link>
-    <Link href="/he"> עברית </Link>
+<Base title="Machon Shilo" description="Torah for those who dare to think.">
+    <main class="flex flex-col h-screen items-center justify-center">
+        <Link href="/en">English</Link>
+        <Link href="/he">עברית</Link>
+    </main>
 </Base>

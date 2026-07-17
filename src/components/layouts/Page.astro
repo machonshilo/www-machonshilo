@@ -19,11 +19,11 @@ const props = {
 ---
 
 <Base title={`${Astro.props.title} | Machon Shilo`} {...rest}>
-    <Link href="#content" class="skip-link">
+    <Link href="#content" class="sr-only focus:not-sr-only">
         {props.skipLink}
     </Link>
     <Header />
-    <main id="content">
+    <main id="content" class="py-2">
         <slot />
     </main>
     <Footer />

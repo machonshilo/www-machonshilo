@@ -56,20 +56,21 @@ const img = (await imageLoader()).default;
 
 import appleTouchIconPng from "@/assets/icons/apple-touch-icon.png";
 import faviconSvg from "@/assets/icons/favicon.svg";
+import { ClientRouter } from "astro:transitions";
 const faviconIcoSrc = "/favicon.ico";
 
-const schema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: props.siteName,
-    url: urlCanonical,
-};
+// const schema = {
+//     "@context": "https://schema.org",
+//     "@type": "WebSite",
+//     name: props.siteName,
+//     url: urlCanonical,
+// };
 ---
 
 <html lang={lang} dir={lang == "he" ? "rtl" : undefined}>
     <head>
+        <Font cssVariable="--font-frank" preload />
         <meta charset="utf-8" />
-        <Font cssVariable="--font-frank" />
 
         <meta
             name="viewport"
@@ -123,9 +124,11 @@ const schema = {
         <link rel="icon" type="image/svg+xml" href={faviconSvg.src} />
         <link rel="icon" type="image/x-icon" href={faviconIcoSrc} sizes="any" />
 
-        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+        <!-- <script type="application/ld+json" set:html={JSON.stringify(schema)} /> -->
+
+        <ClientRouter />
     </head>
-    <body class="font-frank">
+    <body>
         <slot />
     </body>
 </html>

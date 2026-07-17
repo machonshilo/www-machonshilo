@@ -10,7 +10,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  prefetch: true,
   i18n: {
     locales: ["en", "he"],
     defaultLocale: "en",
@@ -26,7 +25,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            weight: 400,
+            weight: "normal",
             style: "normal",
             src: ["./src/assets/fonts/Taamey_D.woff2"],
           },

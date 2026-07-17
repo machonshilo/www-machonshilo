@@ -9,43 +9,61 @@ const languages = {
 const { pathname } = Astro.url;
 
 function getLocalizedPath(targetLang: string) {
-    const segments = pathname.split("/");
-
-    if (segments[1] === lang) {
-        // If the path already starts with the current locale (e.g., /en/blog)
-        segments[1] = targetLang;
-    } else {
-        // If the current URL has no locale prefix (e.g., default root /blog)
-        segments.splice(1, 0, targetLang);
-    }
-
-    return segments.join("/") || "/";
+    return pathname.replace(`/${lang}`, `/${targetLang}`);
 }
 ---
 
-<footer>
-    <select id="language-switcher">
-        {
-            Object.entries(languages).map(([locale, label]) => (
-                <option
-                    value={getLocalizedPath(locale)}
-                    selected={locale === lang}
-                >
-                    {label}
-                </option>
-            ))
-        }
-    </select>
+<footer class="pt-1">
+    <div class="relative w-fit">
+        <select
+            id="language-switcher"
+            dir="ltr"
+            class="appearance-none rounded-lg border px-4 py-2 pr-10"
+        >
+            {
+                Object.entries(languages).map(([code, name]) => (
+                    <option
+                        value={getLocalizedPath(code)}
+                        selected={code === lang}
+                    >
+                        {name}
+                    </option>
+                ))
+            }
+        </select>
+        <div
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
+        >
+            <svg
+                class="h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </div>
+    </div>
 </footer>
 
 <script>
-    const select = document.getElementById(
-        "language-switcher",
-    ) as HTMLSelectElement;
-    if (select) {
-        select.addEventListener("change", (event) => {
-            const target = event.target as HTMLSelectElement;
-            window.location.href = target.value;
-        });
+    import { navigate } from "astro:transitions/client";
+
+    function setupLanguageSwitcher() {
+        const select = document.getElementById(
+            "language-switcher",
+        ) as HTMLSelectElement;
+
+        if (select) {
+            select.addEventListener("change", (event) => {
+                const target = event.target as HTMLSelectElement;
+                navigate(target.value);
+            });
+        }
     }
+
+    document.addEventListener("astro:page-load", setupLanguageSwitcher);
 </script>
