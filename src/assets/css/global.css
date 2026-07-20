@@ -11,9 +11,48 @@
 }
 
 body {
-    @apply font-frank bg-background text-foreground text-lg;
+    @apply font-frank bg-background text-foreground text-xl;
 }
 
 a[target="_blank"]::after {
     content: " ↗";
+}
+/* Only apply "modal drawer" layout configurations on mobile screens */
+@media (max-width: 767px) {
+  #navigation-menu {
+    display: block; /* Overrides browser default browser dialog display */
+    pointer-events: none; /* Prevents clicks on hidden mobile menu */
+    transform: translateX(-100%);
+    transition:
+      transform 0.3s ease,
+      overlay 0.3s allow-discrete,
+      display 0.3s allow-discrete;
+  }
+
+  /* When the browser natively applies [open] attribute */
+  #navigation-menu[open] {
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+
+  /* Darken Backdrop only on mobile */
+  #navigation-menu::backdrop {
+    opacity: 0;
+    transition:
+      opacity 0.3s ease,
+      display 0.3s allow-discrete;
+  }
+
+  #navigation-menu[open]::backdrop {
+    opacity: 1;
+  }
+}
+
+/* Fix desktop dialog compliance:
+   Browsers by design set <dialog>:not([open]) layout display to none.
+   We force the dialog to remain visible statically on desktop. */
+@media (min-width: 768px) {
+  #navigation-menu {
+    display: block !important;
+  }
 }

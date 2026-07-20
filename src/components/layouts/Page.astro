@@ -6,19 +6,23 @@ import Footer from "@/components/ui/Footer.astro";
 
 interface Props {
     title: string;
+    description: string;
 }
 
 const { title, ...rest } = Astro.props;
 
 const lang = Astro.currentLocale ?? "en";
 
-const props = {
+const translations = {
     en: { skipLink: "Skip to main content" },
-    he: { skipLink: "" },
-}[lang];
+    he: { skipLink: "דלג לתוכן המרכזי" },
+};
+
+const props =
+    translations[lang as keyof typeof translations] ?? translations.en;
 ---
 
-<Base title={`${Astro.props.title} | Machon Shilo`} {...rest}>
+<Base title=`${Astro.props.title} | Machon Shilo` {...rest}>
     <Link href="#content" class="sr-only focus:not-sr-only">
         {props.skipLink}
     </Link>

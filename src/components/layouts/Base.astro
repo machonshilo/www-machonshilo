@@ -1,6 +1,7 @@
 ---
 import "@/assets/css/global.css";
 import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 import { getAbsoluteLocaleUrl } from "astro:i18n";
 
 interface Props {
@@ -56,7 +57,6 @@ const img = (await imageLoader()).default;
 
 import appleTouchIconPng from "@/assets/icons/apple-touch-icon.png";
 import faviconSvg from "@/assets/icons/favicon.svg";
-import { ClientRouter } from "astro:transitions";
 const faviconIcoSrc = "/favicon.ico";
 
 // const schema = {
