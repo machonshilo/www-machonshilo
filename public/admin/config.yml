@@ -1,20 +1,46 @@
 # yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
 
+app_title: Machon Shilo CMS
+
+logo:
+  src: /favicon.svg
+
 backend:
   name: gitea
   repo: joshh613/www-machonshilo
   base_url: https://codeberg.org
   api_root: https://codeberg.org/api/v1
 
-media_folder: /public/media
-public_folder: /media
+i18n:
+  locales: [en, he]
+  structure: multiple_folders
+
+# field_defaults:
 
 collections:
-  - name: posts
-    label: Posts
-    label_singular: Post
-    folder: /content/posts
+  - name: blog
+    label: Blog
+    # label_singular:
+    # description:
+    folder: src/content/blog
+    slug: "{{fields._slug}}"
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Date, name: date, widget: datetime, type: date }
-      - { label: Body, name: body, widget: richtext }
+      - { name: title, label: Title }
+      - { name: body, label: Body, widget: richtext }
+
+# singletons:
+
+editor:
+  preview: false
+
+media_folder: /src/assets/cms
+public_folder: /src/assets/cms
+
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 100
