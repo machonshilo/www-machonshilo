@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import Post from "@/components/layouts/Post.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("classes");
+    return posts.map((post) => {
+        const [lang, class_id] = post.id.split("/");
+
+        return {
+            params: { lang, class_id },
+            props: { post },
+        };
+    });
+}
+
+const { data } = Astro.props.post;
+---
+
+<Post title={data.title} description={data.description}>
+    <header>
+        <h1>{data.title}</h1>
+        <time datetime={data.date_updated}></time>
+    </header>
+    <audio></audio>
+    yt link
+    <footer>downloads</footer>
+</Post>

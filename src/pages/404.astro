@@ -1,0 +1,18 @@
+---
+import Page from "@/components/layouts/Page.astro";
+
+const lang = Astro.currentLocale ?? "en";
+
+const translations = {
+    en: { title: "Page not found" },
+    he: { title: "הדף לא נמצא" },
+};
+
+const props =
+    translations[lang as keyof typeof translations] ?? translations.en;
+---
+
+<Page title={props.title} description={props.title}>
+    <p>{props.title}</p>
+    <p>Try searching for: {Astro.url.pathname}</p>
+</Page>

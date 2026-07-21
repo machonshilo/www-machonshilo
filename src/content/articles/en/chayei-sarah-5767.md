@@ -1,0 +1,45 @@
+---
+title: Mayim Hayim - Hayye Sarah 5767
+date_created: 2006-11-12
+author: rabbi-david-bar-hayim
+---
+
+We read in Parashath Hayye Sarah that Dameseq Eli'ezer, Avraham Avinu's faithful servant, was sent to find a wife for Yisshaq. Now he's returning to Eress Yisrael with Rivqa, Yisshaq's wife-to-be. As they are approaching the Neghev, where Yisshaq lived at that time, the Holy Torah tells us: "_wayesse Yisshaq lasuah basadhe liphnoth 'arev, wayissa Â‘enaw wayarr, wehinne ghemalim baim"_ - _"And Yisshaq went out to meditate in the field at the eventide, and upon looking up he saw camels approaching"_ (24:63). What does _"lasuah basadheh"_ mean exactly? What was Yisshaq Avinu doing in the field?
+
+Both Aramaic Targumim state that Yisshaq went out to pray in the field. Rashi comments "_lashon tephilla_ (this means prayer) as in _yishpokh siho_ - he will pour out his heart-felt prayer" (Tehillim 102:1). That this term is taken by Hazal to denote prayer is clear; see for example Bereshith Rabba 60:14 and TB 'Avodha Zara 7b where our verse is understood "_en siha ela tephilla - siha_ refers to tephilla". Rav Sa'adhya Gaon, Menahem ben-Saruq and Yona ibn Janah are unanimous that _lasuah basadeh_ is a reference to prayer.
+
+This is not, however, the only _perush_ in the classic commentaries. Rashbam, a _pashtan_ (literalist), claims that _lasuah is related to _siah,_ as in _"wekhol siah hasadhe",_ "all the plants of the field" (Bereshith 2:5). According to Rashbam, Yisshaq was going to check on his agricultural affairs.
+
+In his _Sepher Hashorashim_, a dictionary of Hebrew roots, Radaq quotes this verse in the entry for _"siah"_ (שיח)_,_ claiming that the reference is to things that grow from the ground, like grass and trees. So too in his Torah commentary where Radaq explains that Yisshaq went _"l'tayel ben hasihim"_, to go for a walk among the trees and bushes. In the entry _"suah_" (שוח) however, he cites several instances of this root meaning "to speak", including our verse, saying that some explain that it refers to "the speech of prayer _(dibbur hatephilla)"._ We see that Radaq brings both interpretations. How can this be?
+
+**Communing with HASHEM in Nature**
+
+What we have before us is yet another example of what we saw in Parashath Lekh L'kha (see Mayim Hayim on Lekh L'kha). When presented with two definitions or explanations it is often understood that each stands alone: one is the more literal, _p'shat_ meaning (in our case strolling among the trees), while the other is a homiletic, _derash_ interpretation (speaking/praying). Sometimes, however, such a simplistic dichotomy is misleading; here the two explanations complement one another and ultimately point in the same direction.
+
+Yisshaq did indeed go out into the field, _basadhe_. His aim? _Lasuah_, to contemplate and meditate, as a prelude to prayer. (This, in our view, is the true _p'shat_, as demonstrated below). Even according to those who explain _lasuah_ to mean a walk in nature, one must ask: Why is the Torah informing us of this fact? Do we need to be told that Yisshaq managed his business affairs with due diligence? And if the Torah wished simply to state that Yisshaq was in the field from where he was in a position to see Rivqa approaching, it should have stated: _"Wayehi Yisshaq basadhe, wayissa Â‘enaw wayarr..."_; the rest is superfluous.
+
+The Torah informs us that **Yisshaq retired to the quiet pasTorahl setting of the field in the late afternoon in order to commune with Hashem.** On this basis Hazal taught that Yisshaq Avinu instituted the Minha (late afternoon) prayer (TB Berakhoth 26b) - or put another way, Hazal decreed that we should learn from Yisshaq's example.
+
+Praying in nature helps us feel closer to Hashem. The Hasidic master Rebbe Nahman of Breslev taught in this regard: "Know that when a person prays in the field, all of the grasses enter the prayer - they assist him and give him strength" (Liqutte Moharan II, 11). Praying to Hashem when surrounded by nature, Hashem's Creation, can be a very powerful experience, enabling increased _kawanah._
+
+(In the Talmud we find a statement that seems to indicate the opposite: Rav Kahana states that he considers one who prays in the field to be brazen (TB Berakhoth 34b)! Rashi explains that when one is in a closed, private area he is more likely to feel submission before Hashem and pray with a true heart. In order to resolve this apparent contradiction the Tosaphoth suggest that Rav Kahana referred to an open but public area where people are usually found - not the quiet and secluded spot that Yisshaq chose. Interestingly, neither Rif nor Rambam quote Rav Kahana's position as halakhah).
+
+If this sounds a lot like Rebbe Nahman's concept of _hithbodhedhuth_, going off alone to commune with Hashem and talk to Him in your own words.... you're absolutely right. Rebbe Nahman taught that this is the original and essential form of prayer: "to go off, to be alone, and to pour out one's heart to one's Maker-in your usual language, in words of your choosing-to express one's innermost thoughts and pray for one's spiritual [and material] needs. The Men of the Great Assembly decreed fixed prayers at fixed times, but the essence of tephilla is this type of [personalized] prayer" (Sihoth HaRan 229).
+
+The fact that the Torah records Yisshaq Avinu engaging in precisely such a form of communion with Hashem proves that this is not something new; Rebbe Nahman is reminding us of the centrality of a very ancient practice dating back, quite literally, to our Forefathers Avraham, Yisshaq and Ya'aqov. Yisshaq Avinu did not travel to Uman, but in at least one very real sense, he _was_ a Breslever.
+
+**Lasuah: to Reflect**
+
+The true meaning of _"sihah",_ _"lasuah",_ is contemplation, reflection and meditation. In Pirqe Avoth (5:21) the Mishnah lists the various stages in the life of a Jew: "at thirty one achieves vigour, at forty understanding, at fifty [a man is able] to advise....at ninety [a man is fit] _lasuah"_ - the exact same word as in our verse_._ Some commentators read _"lashuah"_ with a Shin, explaining that at ninety a person is often bent over - an obvious fact that the Mishnah hardly need mention. Others read _"lasuah"_, explaining that a nonagenarian is able and encouraged to devote much of his energy to prayer.
+
+We maintain that the second interpretation, while closer to the mark, is still imprecise. The truth of the matter is simple - many who achieve such an age lose their ability to speak and even to think clearly. They often sit for hours in a sort of dream-like state, absorbed in their thoughts, thinking to themselves. The Mishnah means to say that often such a person spend many of his waking hours in a semi-meditative state, contemplating, reflecting.
+
+The _lasuah of the Torah and the Mishnah are one and the same. The Mishnah refers to rambling and random thought, the Torah to focused, contemplative thought as a preparation for prayer. Both Rabbenu Yonah and Rabbenu Bahya support this explanation of the Mishnah: they speak of _lasuah in terms of prayer, but in essence the two are practically synonymous because contemplation is the prerequisite to meaningful prayer as we learn in another Mishnah: "The Hasidhim of old used to meditate and prepare for an hour before praying" (Berakhoth 5:1). This is authentic Jewish meditation.
+
+**Growing by Reflection**
+
+Regarding the term _lasuah_, Rav Shimshon Rephael Hirsch comments that just as plants grow, so does the nephesh grow when a person ventures out to be surrounded by nature. He connects _"lassuss"_ (לצוץ), to sprout, with _"lasus"_ (לשוש), which means to rejoice. Similarly, _"ssemah"_ ((צמח, something that grows or sprouts, is related to _"sameah"_ ((שמח, which means joyful. Being in Hashem's Creation, especially among growing, living things brings a certain calmness and joy to the soul. Rav Hirsch states further that the word _"hithpallel",_ to pray, is linguistically related to _"hithballel",_ to be made moist, as in "_minhah bellula bashemen_", "a meal offering mixed with oil" (Wayiqra 7:11). True prayer is meant to moisten and enliven the parched soul by bringing it back to its source, Hashem, the Wellspring of Life.Â 
+
+Yisshaq Avinu went _"lasuah basadhe liphnoth 'arev"_, to be among the greenery of Hashem's Creation, to calm himself in the cool, breezy waning of the day, to meditate and reflect, so that he could pour out his thoughts and feelings in words of gratitude, request and praise to his Creator, Who, unbeknownst to him, was at that very moment sending him his destined life partner to help him proceed with the historical mission initiated by his and our father, Avraham.
+
+May each of us find a quiet and inspiring place to help us saturate ourselves with holiness, and so connect to our inner selves and to our Father in Heaven.
