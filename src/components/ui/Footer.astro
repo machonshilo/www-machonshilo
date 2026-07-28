@@ -9,17 +9,32 @@ const languages = {
 const { pathname } = Astro.url;
 
 function getLocalizedPath(targetLang: string) {
-    return pathname.replace(`/${lang}`, `/${targetLang}`);
+    return pathname.replace(new RegExp(`^/${lang}`), `/${targetLang}`);
 }
+
+const currentYear = new Date().getFullYear();
+
+const translations = {
+    en: {
+        copyright: "All rights reserved.",
+        chooseLanguage: "Choose language",
+    },
+    he: {
+        copyright: "All rights reserved.",
+        chooseLanguage: "Choose language",
+    },
+};
+
+const props =
+    translations[lang as keyof typeof translations] ?? translations.en;
 ---
 
-<footer class="pt-1">
-    <div class="relative w-fit">
-        <select
-            id="language-switcher"
-            dir="ltr"
-            class="appearance-none rounded-lg border px-4 py-2 pr-10"
-        >
+<footer>
+    <p class="copyright">{props.copyright}</p>
+
+    <div class="lang-wrapper">
+        <label for="lang-select">{props.chooseLanguage}</label>
+        <select id="lang-select" onchange="window.location.href = this.value;">
             {
                 Object.entries(languages).map(([code, name]) => (
                     <option
@@ -31,39 +46,7 @@ function getLocalizedPath(targetLang: string) {
                 ))
             }
         </select>
-        <div
-            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
-        >
-            <svg
-                class="h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-            >
-                <path
-                    fill-rule="evenodd"
-                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                    clip-rule="evenodd"></path>
-            </svg>
-        </div>
     </div>
 </footer>
 
-<script>
-    import { navigate } from "astro:transitions/client";
-
-    function setupLanguageSwitcher() {
-        const select = document.getElementById(
-            "language-switcher",
-        ) as HTMLSelectElement;
-
-        if (select) {
-            select.addEventListener("change", (event) => {
-                const target = event.target as HTMLSelectElement;
-                navigate(target.value);
-            });
-        }
-    }
-
-    document.addEventListener("astro:page-load", setupLanguageSwitcher);
-</script>
+<style></style>

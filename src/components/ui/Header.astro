@@ -1,6 +1,4 @@
 ---
-import Link from "@/components/Link.astro";
-
 const lang = Astro.currentLocale ?? "en";
 
 const translations = {
@@ -30,99 +28,56 @@ const props =
     translations[lang as keyof typeof translations] ?? translations.en;
 ---
 
-<header
-    class="sticky top-0 z-50 flex items-center justify-between bg-background px-6 py-4 shadow-sm"
->
-    <span class="text-xl font-bold">{props.siteName}</span>
-    <dialog
-        id="navigation-menu"
-        class="m-0 h-full max-h-screen w-4/5 max-w-sm border-none bg-white p-6 shadow-2xl backdrop:bg-black/40 backdrop:backdrop-blur-sm
-           md:static md:flex md:h-auto md:max-h-none md:w-auto md:max-w-none md:bg-transparent md:p-0 md:shadow-none"
-    >
-        <div class="flex flex-col h-full md:flex-row md:items-center md:gap-8">
-            <div
-                class="flex items-center justify-between pb-6 border-b border-gray-100 md:hidden"
-            >
-                <span class="text-xl font-bold text-gray-900">MyBrand</span>
-                <form method="dialog">
-                    <button
-                        class="flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100"
-                        aria-label="Close menu"
-                        autofocus
-                    >
-                        <svg
-                            class="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </form>
-            </div>
-
-            <nav class="flex flex-col gap-4 py-8 md:flex-row md:gap-8 md:py-0">
-                {
-                    props.links.map((link) => (
-                        <Link href={link.href}>{link.text}</Link>
-                    ))
-                }
-            </nav>
-        </div>
-    </dialog>
-
-    <button
-        id="open-menu-btn"
-        class="flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 md:hidden"
-        aria-label="Open navigation menu"
-    >
-        <svg
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-        >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
-        </svg>
-    </button>
+<header>
+    <nav>
+        <ul>
+            {
+                props.links.map((link) => (
+                    <li>
+                        <a href={link.href}>{link.text}</a>
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
 </header>
 
-<script>
-    function setupMobileNavigation() {
-        const dialog = document.getElementById(
-            "navigation-menu",
-        ) as HTMLDialogElement | null;
-        const openBtn = document.getElementById(
-            "open-menu-btn",
-        ) as HTMLButtonElement | null;
-
-        if (!dialog || !openBtn) return;
-
-        const navLinks = dialog.querySelectorAll(
-            ".nav-link",
-        ) as NodeListOf<HTMLAnchorElement>;
-
-        openBtn.addEventListener("click", () => {
-            dialog.showModal();
-        });
-
-        navLinks.forEach((link) => {
-            link.addEventListener("click", () => {
-                if (dialog.hasAttribute("open") && window.innerWidth < 768) {
-                    dialog.close();
-                }
-            });
-        });
+<style>
+    header {
+        background-color: var(--color-bg);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 1rem 2rem;
     }
 
-    document.addEventListener("astro:page-load", setupMobileNavigation);
-</script>
+    nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    ul {
+        display: flex;
+        gap: 1.5rem;
+        list-style: none;
+    }
+
+    a {
+        color: var(--color-text);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.2s ease-in-out;
+        padding: 0.5rem 0;
+    }
+
+    a:hover,
+    a:focus {
+        color: var(--color-blue);
+        outline: none;
+    }
+</style>

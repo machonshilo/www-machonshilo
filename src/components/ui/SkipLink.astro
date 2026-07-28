@@ -1,0 +1,44 @@
+---
+interface Props {
+    targetId: string;
+}
+
+const { targetId } = Astro.props;
+
+const lang = Astro.currentLocale ?? "en";
+
+const translations = {
+    en: { label: "Skip to main content" },
+    he: { label: "דלג לתוכן המרכזי" },
+};
+
+const props =
+    translations[lang as keyof typeof translations] ?? translations.en;
+---
+
+<a href={`#${targetId}`}>
+    {props.label}
+</a>
+
+<style>
+    a {
+        position: absolute;
+        top: 10px;
+        inset-inline-start: 10px;
+
+        transform: translateY(-200%);
+        background: black;
+        color: white;
+        padding: 12px 24px;
+        font-size: var(--font-size-lg);
+        font-weight: bold;
+        z-index: 9999;
+        text-decoration: none;
+
+        transition: transform 0.2s ease-in-out;
+    }
+
+    a:focus {
+        transform: translateY(0);
+    }
+</style>

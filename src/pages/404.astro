@@ -4,15 +4,39 @@ import Page from "@/components/layouts/Page.astro";
 const lang = Astro.currentLocale ?? "en";
 
 const translations = {
-    en: { title: "Page not found" },
-    he: { title: "הדף לא נמצא" },
+    en: {
+        title: "Page Not Found",
+        description:
+            "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+        advice: "",
+    },
+    he: {
+        title: "העמוד לא נמצא",
+        description:
+            "העמוד שחיפשת אינו קיים, ייתכן שהוסר, שונה שמו או שאינו זמין זמנית.",
+    },
 };
 
 const props =
     translations[lang as keyof typeof translations] ?? translations.en;
 ---
 
-<Page title={props.title} description={props.title}>
-    <p>{props.title}</p>
-    <p>Try searching for: {Astro.url.pathname}</p>
+<Page title={props.title} description={props.description}>
+    <section>
+        <h1>{props.title}</h1>
+    </section>
 </Page>
+
+<style>
+    section {
+        flex-grow: 0.8;
+
+        display: grid;
+        place-items: center;
+        text-align: center;
+        font-size: var(--font-size-2xl);
+    }
+    h1 {
+        font-size: var(--font-size-2xl);
+    }
+</style>

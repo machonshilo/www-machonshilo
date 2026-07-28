@@ -1,5 +1,4 @@
 ---
-// import "@/assets/css/global.css";
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { getAbsoluteLocaleUrl } from "astro:i18n";
@@ -13,6 +12,15 @@ interface Props {
     authorTwitter?: string;
 }
 
+const {
+    title,
+    description,
+    imgSrc = "og-large-card.png",
+    imgAlt,
+    type = "website",
+    authorTwitter,
+} = Astro.props;
+
 const lang = Astro.currentLocale ?? "en";
 
 const translations = {
@@ -22,15 +30,6 @@ const translations = {
 
 const props =
     translations[lang as keyof typeof translations] ?? translations.en;
-
-const {
-    title,
-    description,
-    imgSrc = "og-large-card.png",
-    imgAlt,
-    type = "website",
-    authorTwitter,
-} = Astro.props;
 
 const basePath = Astro.url.pathname.replace(`/${Astro.currentLocale}`, "");
 const urlEn = getAbsoluteLocaleUrl("en", basePath);
@@ -67,19 +66,19 @@ const faviconIcoSrc = "/favicon.ico";
 // };
 ---
 
-<html lang={lang} dir={lang == "he" ? "rtl" : undefined}>
+<html lang={lang} dir={lang == "he" ? "rtl" : "ltr"}>
     <head>
-        <Font cssVariable="--font-frank" preload />
         <meta charset="utf-8" />
-
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
-
         <title>{title}</title>
-        <meta name="description" content={description} />
 
+        <!-- <ClientRouter /> -->
+        <Font cssVariable="--font-frank" preload />
+
+        <meta name="description" content={description} />
         <meta name="robots" content="max-image-preview:large" />
 
         <link rel="canonical" href={urlCanonical} />
@@ -114,8 +113,6 @@ const faviconIcoSrc = "/favicon.ico";
             )
         }
 
-        <link rel="manifest" href="/site.webmanifest" />
-
         <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -124,11 +121,99 @@ const faviconIcoSrc = "/favicon.ico";
         <link rel="icon" type="image/svg+xml" href={faviconSvg.src} />
         <link rel="icon" type="image/x-icon" href={faviconIcoSrc} sizes="any" />
 
-        <!-- <script type="application/ld+json" set:html={JSON.stringify(schema)} /> -->
+        <link rel="manifest" href="/site.webmanifest" />
 
-        <ClientRouter />
+        <!-- <script type="application/ld+json" set:html={JSON.stringify(schema)} /> -->
     </head>
     <body>
         <slot />
     </body>
 </html>
+
+<style is:global>
+    :root {
+        --color-bg: oklch(0.986 0.014 84.583);
+        --color-text: oklch(0.189 0.015 25.858);
+        --color-blue: oklch(0.428 0.172 259.702);
+
+        --font-size-xs: 0.75rem;
+        --font-size-sm: 0.875rem;
+        --font-size-md: 1rem;
+        --font-size-lg: 1.125rem;
+        --font-size-xl: 1.3125rem;
+        --font-size-2xl: 1.5rem;
+        --font-size-3xl: 2.625rem;
+        --font-size-4xl: 4rem;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    *:not(dialog) {
+        margin: 0;
+    }
+
+    html {
+        scrollbar-gutter: stable;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        html {
+            interpolate-size: allow-keywords;
+            scroll-behavior: smooth;
+        }
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        line-height: 1.5;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        font-family: var(--font-frank);
+        font-size: var(--font-size-md);
+    }
+
+    img,
+    picture,
+    video,
+    canvas,
+    svg {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    textarea,
+    select {
+        font: inherit;
+    }
+
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        overflow-wrap: break-word;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-wrap: balance;
+    }
+</style>

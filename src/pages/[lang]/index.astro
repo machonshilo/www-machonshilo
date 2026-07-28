@@ -1,16 +1,26 @@
 ---
+import { i18n } from "astro:config/client";
+
 import Page from "@/components/layouts/Page.astro";
 
-export function getStaticPaths() {
-    return [{ params: { lang: "en" } }, { params: { lang: "he" } }];
+export async function getStaticPaths() {
+    const locales = i18n?.locales || [];
+
+    return locales.map((lang) => {
+        return { params: { lang } };
+    });
 }
 
-const lang = Astro.currentLocale ?? "en";
+const { lang } = Astro.params;
 
-const props = {
-    en: { title: "Home" },
-    he: { title: "בית" },
-}[lang];
+const translations = {
+    en: { title: "Home", description: "" },
+    he: { title: "בית", description: "" },
+};
+
+const props = translations[lang as keyof typeof translations];
 ---
 
-<Page title={props.title}> {props.title} </Page>
+<Page title={props.title} description={props.description}>
+    {props.title}
+</Page>
