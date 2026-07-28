@@ -1,6 +1,7 @@
 ---
 title: A Letter from A Talmid to Rabbi David Bar-Hayim
 date_created: ''
+author: a-student
 ---
 
 Jews are unsatisfied with the Judaism which they encounter. Some are so dissatisfied that they actually abandon their commitment to Tora altogether. Machon Shilo strives for a more intellectually honest and fuller expression of Tora Judaism – a Tora that is in and of itself authentic and true, the Tora as intended by HASHEM for the Jewish nation and for all mankind wherein freedom dwells with righteousness, equality with excellence, wealth with beauty, the here and now with love of the Eternal. A Tora such as this can reach out to the disenchanted. The following letter which was recently sent to HaRav David Bar-Hayim underscores this point:
