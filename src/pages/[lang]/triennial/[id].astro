@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+
+import Post from "@/components/layouts/Post.astro";
+
+export async function getStaticPaths() {
+    const readings = await getCollection("triennial");
+
+    // We map over each JSON file (entry)
+    return readings.flatMap((entry) => {
+        // For every file, we create two paths: one for 'en' and one for 'he'
+        return [
+            {
+                params: { lang: "en", id: entry.id },
+                props: { reading: entry.data.en },
+            },
+            {
+                params: { lang: "he", id: entry.id },
+                props: { reading: entry.data.he },
+            },
+        ];
+    });
+}
+
+// Get the specific language object passed from props
+const { reading } = Astro.props;
+---
+
+<Post title={reading.title} description="">
+    <h1>{reading.title}</h1>
+    <ul>
+        <li><strong>Start:</strong> {reading.start}</li>
+        <li><strong>End:</strong> {reading.end}</li>
+        <li><strong>Date:</strong> {reading.date.toDateString()}</li>
+    </ul>
+
+    {reading.notes && <p>{reading.notes}</p>}
+</Post>

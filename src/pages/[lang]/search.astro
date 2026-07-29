@@ -1,7 +1,7 @@
 ---
 import { i18n } from "astro:config/client";
 
-import Post from "@/components/layouts/Post.astro";
+import Page from "@/components/layouts/Page.astro";
 
 export async function getStaticPaths() {
     const locales = i18n?.locales || [];
@@ -14,13 +14,13 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 
 const translations = {
-    en: { title: "Posts", description: "" },
+    en: { title: "Search", description: "" },
     he: { title: "", description: "" },
 };
 
 const props = translations[lang as keyof typeof translations];
 ---
 
-<Post title={props.title} description={props.description}>
+<Page title={props.title} description={props.description}>
     <h1>{props.title}</h1>
-</Post>
+</Page>

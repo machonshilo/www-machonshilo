@@ -12,3 +12,27 @@ interface Props {
         <slot />
     </section>
 </Page>
+
+<style>
+    section {
+        display: grid;
+        grid-template-columns:
+            1fr
+            min(42rem, 100%)
+            1fr;
+        padding: 20px 50px;
+    }
+    section > :global(*) {
+        grid-column: 2;
+    }
+
+    :global(h1) {
+        font-size: var(--font-size-lg);
+    }
+    :global(section p) {
+        font-size: var(--font-size-md);
+    }
+    :global(a) {
+        font-size: var(--font-size-md);
+    }
+</style>

@@ -1,5 +1,6 @@
 ---
 import { i18n } from "astro:config/client";
+import { getCollection } from "astro:content";
 
 import Post from "@/components/layouts/Post.astro";
 
@@ -14,13 +15,24 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 
 const translations = {
-    en: { title: "Posts", description: "" },
-    he: { title: "", description: "" },
+    en: { title: "Triennial Cycle", description: "" },
+    he: { title: "Triennial Cycle", description: "" },
 };
 
 const props = translations[lang as keyof typeof translations];
+
+const posts = await getCollection("triennial");
 ---
 
 <Post title={props.title} description={props.description}>
     <h1>{props.title}</h1>
+    <ul>
+        {
+            posts.map((post) => (
+                <li>
+                    <a href=`/${lang}/triennial/${post.id}`>{post.id}</a>
+                </li>
+            ))
+        }
+    </ul>
 </Post>

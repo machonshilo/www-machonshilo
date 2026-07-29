@@ -9,4 +9,20 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const readingSchema = z.object({
+  title: z.string(),
+  start: z.string(),
+  end: z.string(),
+  date: z.coerce.date(),
+  notes: z.string().optional(),
+});
+
+const triennial = defineCollection({
+  loader: glob({ base: "./src/content/triennial", pattern: "**/*.json" }),
+  schema: z.object({
+    en: readingSchema,
+    he: readingSchema,
+  }),
+});
+
+export const collections = { blog, triennial };
