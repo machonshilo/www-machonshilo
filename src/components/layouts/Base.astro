@@ -77,6 +77,9 @@ const faviconIcoSrc = "/favicon.ico";
 
         <!-- <ClientRouter /> -->
         <Font cssVariable="--font-frank" preload />
+        <Font cssVariable="--font-suez" preload />
+
+        <slot name="head" />
 
         <meta name="description" content={description} />
         <meta name="robots" content="max-image-preview:large" />
@@ -154,6 +157,10 @@ const faviconIcoSrc = "/favicon.ico";
         margin: 0;
     }
 
+    html {
+        scrollbar-color: var(--color-blue) transparent;
+    }
+
     @media (prefers-reduced-motion: no-preference) {
         html {
             interpolate-size: allow-keywords;
@@ -188,18 +195,9 @@ const faviconIcoSrc = "/favicon.ico";
         font: inherit;
     }
 
-    p,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        overflow-wrap: break-word;
-    }
-
     p {
         text-wrap: pretty;
+        overflow-wrap: break-word;
     }
     h1,
     h2,
@@ -208,5 +206,7 @@ const faviconIcoSrc = "/favicon.ico";
     h5,
     h6 {
         text-wrap: balance;
+        overflow-wrap: break-word;
+        font-family: var(--font-suez);
     }
 </style>

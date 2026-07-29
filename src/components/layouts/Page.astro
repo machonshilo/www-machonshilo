@@ -15,6 +15,7 @@ const skipLinkId = "main-content";
 ---
 
 <Base title=`${title} | Machon Shilo` description={description}>
+    <slot name="head" slot="head" />
     <SkipLink targetId={skipLinkId} />
     <Header />
     <main id={skipLinkId} tabindex="-1">

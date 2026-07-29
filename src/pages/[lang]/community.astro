@@ -2,6 +2,7 @@
 import { i18n } from "astro:config/client";
 
 import Post from "@/components/layouts/Post.astro";
+import Link from "@/components/Link.astro";
 
 export async function getStaticPaths() {
     const locales = i18n?.locales || [];
@@ -14,13 +15,271 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 
 const translations = {
-    en: { title: "Community", description: "" },
-    he: { title: "", description: "" },
+    en: {
+        title: "Community",
+        description:
+            "Machon Shilo community network, classes, and local leadership contacts.",
+        content: {
+            welcome: "Welcome to the family!",
+            reachOut: "Feel free to reach out to one of our local leaders",
+            general: "General enquiries",
+            office: "office@machonshilo.org",
+            classesTitle: "Our Classes",
+            monthlyTitle: "Monthly",
+            weeklyTitle: "Weekly",
+            locationLabel: "Location",
+            missedClassTitle: "Missed a Class?",
+            whatsappText:
+                "Click here to join our WhatsApp group with details for all upcoming classes.",
+        },
+        classes: {
+            monthly: {
+                title: "Rosh Hodesh",
+                description: "Topical shi’ur with Rabbi David Bar-Hayim",
+                location: "French Hill",
+            },
+            weekly: {
+                title: "Thursday, 8pm",
+                description: "Parsha & Rambam with Rabbi Avi Grossman",
+                location: "Kokhav Ya’aqov (and live on Zoom)",
+            },
+        },
+        localContacts: [
+            {
+                location: "Jerusalem",
+                leader: "Joshua Hall",
+                contact: "jerusalem@machonshilo.org",
+            },
+            {
+                location: "Beth Shemesh",
+                leader: "Binyamin Lemkin",
+                contact: "betshemesh@machonshilo.org",
+            },
+            {
+                location: "New York",
+                leader: "Chaim Ginsberg",
+                contact: "ny@machonshilo.org",
+            },
+            {
+                location: "Modi’in",
+                leader: "Yirmi Ben Zeev",
+                contact: "modiin@machonshilo.org",
+            },
+            {
+                location: "Bik’at haYarden",
+                leader: "Yerachmiel Ben Tzvi",
+                contact: "yericho@machonshilo.org",
+            },
+            {
+                location: "New Jersey",
+                leader: "Ephraim Ayal",
+                contact: "nj@machonshilo.org",
+            },
+            {
+                location: "NW Israel",
+                leader: "Joshua Freedman",
+                contact: "nwisrael@machonshilo.org",
+            },
+            {
+                location: "The Golan",
+                leader: "Natan Zipper",
+                contact: "golan@machonshilo.org",
+            },
+            {
+                location: "Giv’ath Sh’mu’el",
+                leader: "Ariel Schwartz",
+                contact: "givatshmuel@machonshilo.org",
+            },
+            {
+                location: "Los Angeles",
+                leader: "Yisrael Gauthier",
+                contact: "losangeles@machonshilo.org",
+            },
+            {
+                location: "Shomron",
+                leader: "Baruch Kogan",
+                contact: "shomron@machonshilo.org",
+            },
+            {
+                location: "Kokhav Ya’akoq",
+                leader: "Rav Avi Grossman",
+                contact: "kokhavyaakov@machonshilo.org",
+            },
+            {
+                location: "Antwerp",
+                leader: "Avraham De Wolff",
+                contact: "antwerp@machonshilo.org",
+            },
+        ],
+    },
+    he: {
+        title: "קהילה",
+        description:
+            "רשת הקהילה של מכון שילה, שיעורים ואנשי קשר של מנהיגים מקומיים.",
+        content: {
+            welcome: "ברוכים הבאים למשפחה!",
+            reachOut: "אל תהסס לפנות לאחד מהמנהיגים המקומיים שלנו",
+            general: "פניות כלליות",
+            office: "office@machonshilo.org",
+            classesTitle: "השיעורים שלנו",
+            monthlyTitle: "חודשי",
+            weeklyTitle: "שבועי",
+            locationLabel: "מיקום",
+            missedClassTitle: "פספסתם שיעור?",
+            whatsappText:
+                "לחצו כאן כדי להצטרף לקבוצת הווטסאפ שלנו עם פרטים על כל השיעורים הקרובים.",
+        },
+        classes: {
+            monthly: {
+                title: "ראש חודש",
+                description: "שיעור אקטואלי עם הרב דוד בר-חיים",
+                location: "הגבעה הצרפתית",
+            },
+            weekly: {
+                title: "יום חמישי, 20:00",
+                description: 'פרשה ורמב"ם עם הרב אבי גרוסמן',
+                location: "כוכב יעקב (ובשידור חי בזום)",
+            },
+        },
+        localContacts: [
+            {
+                location: "ירושלים",
+                leader: "יהושע הול",
+                contact: "jerusalem@machonshilo.org",
+            },
+            {
+                location: "בית שמש",
+                leader: "בנימין למקין",
+                contact: "betshemesh@machonshilo.org",
+            },
+            {
+                location: "ניו יורק",
+                leader: "חיים גינזבורג",
+                contact: "ny@machonshilo.org",
+            },
+            {
+                location: "מודיעין",
+                leader: "ירמי בן זאב",
+                contact: "modiin@machonshilo.org",
+            },
+            {
+                location: "בקעת הירדן",
+                leader: "ירחמיאל בן צבי",
+                contact: "yericho@machonshilo.org",
+            },
+            {
+                location: "ניו ג'רזי",
+                leader: "אפרים אייל",
+                contact: "nj@machonshilo.org",
+            },
+            {
+                location: "צפון מערב ישראל",
+                leader: "יהושע פרידמן",
+                contact: "nwisrael@machonshilo.org",
+            },
+            {
+                location: "הגולן",
+                leader: "נתן ציפר",
+                contact: "golan@machonshilo.org",
+            },
+            {
+                location: "גבעת שמואל",
+                leader: "אריאל שוורץ",
+                contact: "givatshmuel@machonshilo.org",
+            },
+            {
+                location: "לוס אנג'לס",
+                leader: "ישראל גוטייה",
+                contact: "losangeles@machonshilo.org",
+            },
+            {
+                location: "שומרון",
+                leader: "ברוך קוגן",
+                contact: "shomron@machonshilo.org",
+            },
+            {
+                location: "כוכב יעקב",
+                leader: "הרב אבי גרוסמן",
+                contact: "kokhavyaakov@machonshilo.org",
+            },
+            {
+                location: "אנטוורפן",
+                leader: "אברהם דה וולף",
+                contact: "antwerp@machonshilo.org",
+            },
+        ],
+    },
 };
 
 const props = translations[lang as keyof typeof translations];
 ---
 
 <Post title={props.title} description={props.description}>
-    <h1>{props.title}</h1>
+    <h1>{props.content.welcome}</h1>
+
+    <!-- Classes Section -->
+    <section class="classes-section">
+        <h2>{props.content.classesTitle}</h2>
+
+        <div class="class-card">
+            <h3>{props.content.monthlyTitle}</h3>
+            <h4>{props.classes.monthly.title}</h4>
+            <p>{props.classes.monthly.description}</p>
+            <p class="location">
+                <strong>{props.content.locationLabel}:</strong>
+                {props.classes.monthly.location}
+            </p>
+        </div>
+
+        <div class="class-card">
+            <h3>{props.content.weeklyTitle}</h3>
+            <h4>{props.classes.weekly.title}</h4>
+            <p>{props.classes.weekly.description}</p>
+            <p class="location">
+                <strong>{props.content.locationLabel}:</strong>
+                {props.classes.weekly.location}
+            </p>
+        </div>
+
+        <div class="whatsapp-box">
+            <h3>{props.content.missedClassTitle}</h3>
+            <p>
+                <!-- Replace '#' with your actual WhatsApp community invite link token -->
+                <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="whatsapp-link"
+                >
+                    {props.content.whatsappText}
+                </a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Leadership Contacts Section -->
+    <section class="contacts-section">
+        <h2>{props.content.reachOut}</h2>
+        <ul class="contacts-list">
+            {
+                props.localContacts.map((item) => (
+                    <li>
+                        <strong>{item.location}:</strong> {item.leader} —
+                        <Link dir="ltr" href={`mailto:${item.contact}`}>
+                            {item.contact}
+                        </Link>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+
+    <!-- General Inquiries -->
+    <section class="general-section">
+        <h2>{props.content.general}</h2>
+        <p>
+            <a href={`mailto:${props.content.office}`}>{props.content.office}</a
+            >
+        </p>
+    </section>
 </Post>

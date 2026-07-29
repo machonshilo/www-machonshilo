@@ -3,6 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"a"> {
     newTab?: boolean;
+    dir?: string;
 }
 
 const { href, ...props } = Astro.props;
@@ -22,3 +23,23 @@ if (typeof href === "string") {
 <a target={newTab ? "_blank" : undefined} href={href} {...props}>
     <slot />
 </a>
+
+<style>
+    a {
+        color: var(--color-blue);
+        text-decoration: none;
+        background-image: linear-gradient(var(--color-blue), var(--color-blue));
+        background-size: 0% 4px;
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        transition: background-size 0.3s ease;
+    }
+
+    a:dir(rtl) {
+        background-position: right bottom;
+    }
+
+    a:hover {
+        background-size: 100% 4px;
+    }
+</style>

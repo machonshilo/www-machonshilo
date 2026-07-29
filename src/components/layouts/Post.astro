@@ -18,21 +18,36 @@ interface Props {
         display: grid;
         grid-template-columns:
             1fr
-            min(42rem, 100%)
+            min(42rem, calc(100% - 2rem))
             1fr;
-        padding: 20px 50px;
+        padding: 3rem 0;
+
+        color: var(--color-text); /* Dark charcoal text body */
+        font-size: var(--font-size-md);
     }
+
     section > :global(*) {
         grid-column: 2;
     }
 
-    :global(h1) {
-        font-size: var(--font-size-lg);
+    :global(h1),
+    :global(h2),
+    :global(h3),
+    :global(h4) {
+        color: var(--color-text);
+        line-height: 1.25;
+        letter-spacing: -0.02em;
     }
-    :global(section p) {
-        font-size: var(--font-size-md);
+
+    :global(ul),
+    :global(ol) {
+        margin-top: 0;
+        margin-bottom: 1.25rem;
+        padding-inline-start: 1.625rem;
     }
-    :global(a) {
-        font-size: var(--font-size-md);
+
+    :global(li) {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
     }
 </style>

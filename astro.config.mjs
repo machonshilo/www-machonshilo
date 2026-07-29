@@ -6,6 +6,9 @@ export default defineConfig({
   site: "https://machonshilo.org",
   compressHTML: true,
   prerenderConflictBehavior: "error",
+  build: {
+    inlineStylesheets: "never",
+  },
   i18n: {
     locales: ["en", "he"],
     defaultLocale: "en",
@@ -27,6 +30,12 @@ export default defineConfig({
           },
         ],
       },
+    },
+    {
+      provider: fontProviders.google(),
+      name: "Suez One",
+      cssVariable: "--font-suez",
+      subsets: ["latin", "hebrew"],
     },
   ],
 });

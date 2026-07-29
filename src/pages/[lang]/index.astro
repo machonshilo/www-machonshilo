@@ -1,7 +1,9 @@
 ---
 import { i18n } from "astro:config/client";
+import { Image, getImage } from "astro:assets"; // 1. Added getImage
 
 import Page from "@/components/layouts/Page.astro";
+import ramon from "@/assets/img/ramon-small.jpg";
 
 export async function getStaticPaths() {
     const locales = i18n?.locales || [];
@@ -19,8 +21,92 @@ const translations = {
 };
 
 const props = translations[lang as keyof typeof translations];
+
+// 2. Generate the exact optimized file URL to match Astro's compilation engine output
+const optimizedHero = await getImage({ src: ramon });
 ---
 
 <Page title={props.title} description={props.description}>
-    {props.title}
+    <!-- 3. Inject the preload link explicitly to your Page layout's head element -->
+    <link
+        rel="preload"
+        as="image"
+        href={optimizedHero.src}
+        slot="head"
+        fetchpriority="high"
+    />
+
+    <section>
+        <Image
+            src={ramon}
+            alt="Scenic mountain landscape"
+            loading="eager"
+            fetchpriority="high"
+            class="hero-img"
+        />
+        <div class="hero-overlay">
+            <h1>{props.title}</h1>
+        </div>
+    </section>
+    <section>
+        <Image
+            src={ramon}
+            alt="Scenic mountain landscape"
+            loading="eager"
+            fetchpriority="high"
+            class="hero-img"
+        />
+        <div class="hero-overlay">
+            <h1>{props.title}</h1>
+        </div>
+    </section>
 </Page>
+
+<style>
+    html {
+        scrollbar-width: none;
+    }
+    section {
+        position: relative;
+        width: 100%;
+        height: 85vh;
+        margin-top: -4.5rem;
+
+        overflow: hidden;
+    }
+
+    .hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.3),
+            rgba(0, 0, 0, 0.1)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .content-section {
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .body-img {
+        width: 100%;
+        height: auto;
+        max-height: 60vh;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+</style>
