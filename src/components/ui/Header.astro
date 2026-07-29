@@ -1,25 +1,26 @@
 ---
 const lang = Astro.currentLocale ?? "en";
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
 
 const translations = {
     en: {
         siteName: "Machon Shilo",
         links: [
             { href: "/en", text: "Home" },
-            { href: "/en/blog", text: "Blog" },
             { href: "/en/community", text: "Community" },
+            { href: "/en/ask", text: "Ask The Rabbi" },
             { href: "/en/triennial", text: "Triennial Cycle" },
-            { href: "/en/classes", text: "Classes" },
+            { href: "/en/donate", text: "Donate" },
         ],
     },
     he: {
         siteName: "מכון שילה",
         links: [
             { href: "/he", text: "בית" },
-            { href: "/he/blog", text: "בלוג" },
             { href: "/he/community", text: "קהילה" },
-            { href: "/he/triennial", text: "מחזור תלת שנתי" },
-            { href: "/he/classes", text: "שיעורים" },
+            { href: "/he/ask", text: "שאל את הרב" },
+            { href: "/he/triennial", text: "מחזור התלת שנתי" },
+            { href: "/he/donate", text: "לתרום" },
         ],
     },
 };
@@ -28,24 +29,75 @@ const props =
     translations[lang as keyof typeof translations] ?? translations.en;
 ---
 
-<header>
+<header id="main-header">
     <nav>
-        <ul>
+        <button
+            id="menu-toggle"
+            aria-expanded="false"
+            aria-label="Toggle navigation menu"
+        >
+            <svg
+                width="1.25rem"
+                height="1.25rem"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <line x1="3" y1="5" x2="21" y2="5"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="19" x2="21" y2="19"></line>
+            </svg>
+        </button>
+
+        <ul id="nav-links">
             {
-                props.links.map((link) => (
-                    <li>
-                        <a href={link.href}>{link.text}</a>
-                    </li>
-                ))
+                props.links.map((link) => {
+                    const linkPath = link.href.replace(/\/$/, "");
+
+                    const isHome =
+                        linkPath === "/en" ||
+                        linkPath === "/he" ||
+                        linkPath === "";
+                    const isActive = isHome
+                        ? currentPath === linkPath
+                        : currentPath.startsWith(linkPath);
+
+                    return (
+                        <li>
+                            <a
+                                href={link.href}
+                                class={isActive ? "active" : ""}
+                                aria-current={isActive ? "page" : undefined}
+                            >
+                                {link.text}
+                            </a>
+                        </li>
+                    );
+                })
             }
         </ul>
     </nav>
 </header>
 
+<script>
+    const button = document.getElementById("menu-toggle");
+    const header = document.getElementById("main-header");
+
+    button?.addEventListener("click", () => {
+        const isOpen = header?.classList.toggle("menu-open");
+        button.setAttribute("aria-expanded", String(isOpen));
+    });
+</script>
+
 <style>
     header {
         background-color: var(--color-bg);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        box-shadow:
+            0px 0px 4px oklch(0.7 0 0),
+            0px 0px 12px oklch(0.8 0 0);
         position: sticky;
         top: 0;
         z-index: 100;
@@ -53,30 +105,81 @@ const props =
     }
 
     nav {
-        max-width: 1200px;
-        margin: 0 auto;
+        margin: auto;
+        max-width: 42rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
     ul {
-        display: flex;
+        display: none;
+        flex-direction: column;
         gap: 1.5rem;
         list-style: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--color-bg);
+        padding: 2rem;
+        border-top: 1px solid oklch(0.9 0 0);
+        box-shadow: 0px 10px 12px oklch(0.8 0 0 / 0.1);
+    }
+
+    header.menu-open ul {
+        display: flex;
     }
 
     a {
         color: var(--color-text);
         text-decoration: none;
-        font-weight: 500;
         font-size: var(--font-size-md);
         transition: color 0.2s ease-in-out;
+        display: block;
+    }
+
+    a.active {
+        font-weight: bold;
+        color: var(--color-blue);
     }
 
     a:hover,
     a:focus {
         color: var(--color-blue);
         outline: none;
+    }
+
+    #menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 1.5rem;
+        height: 1.1rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .bar {
+        width: 100%;
+        height: 2px;
+        background-color: var(--color-text);
+    }
+
+    @media (width >= 700px) {
+        #menu-toggle {
+            display: none;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: row;
+            position: static;
+            padding: 0;
+            border-top: none;
+            box-shadow: none;
+        }
     }
 </style>
