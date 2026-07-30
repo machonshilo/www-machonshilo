@@ -6,8 +6,10 @@ export default defineConfig({
   site: "https://machonshilo.org",
   compressHTML: true,
   prerenderConflictBehavior: "error",
-  build: {
-    inlineStylesheets: "never",
+  vite: {
+    build: {
+      assetsInlineLimit: 0,
+    },
   },
   i18n: {
     locales: ["en", "he"],
