@@ -22,20 +22,7 @@ const props =
 ---
 
 <Page title={props.title} description={props.description}>
-    <section>
+    <section style="place-self: center;">
         <h1>{props.title}</h1>
     </section>
 </Page>
-
-<style>
-    section {
-        flex-grow: 0.8;
-
-        display: grid;
-        place-items: center;
-        text-align: center;
-    }
-    h1 {
-        font-size: var(--font-size-lg);
-    }
-</style>

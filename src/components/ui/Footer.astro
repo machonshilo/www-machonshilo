@@ -30,9 +30,7 @@ const props =
 ---
 
 <footer>
-    <p class="copyright">{props.copyright}</p>
-
-    <div class="lang-wrapper">
+    <div>
         <label for="lang-select">{props.chooseLanguage}</label>
         <select id="lang-select" onchange="window.location.href = this.value;">
             {
@@ -50,7 +48,7 @@ const props =
 </footer>
 
 <style>
-    p {
-        font-size: var(--font-size-sm);
+    footer {
+        grid-column: 1 / -1;
     }
 </style>

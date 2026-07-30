@@ -1,6 +1,6 @@
 ---
 const lang = Astro.currentLocale ?? "en";
-const currentPath = Astro.url.pathname.replace(/\/$/, "");
+const currentPath = Astro.url.pathname;
 
 const translations = {
     en: {
@@ -27,16 +27,10 @@ const translations = {
 
 const props =
     translations[lang as keyof typeof translations] ?? translations.en;
-
-const isGlass = currentPath === "/en" || currentPath === "/he";
 ---
 
-<header id="main-header" class={isGlass ? "glass" : undefined}>
-    <nav class="nav-container">
-        <a href={props.links[0].href} class="site-logo">
-            {props.siteName}
-        </a>
-
+<header>
+    <nav>
         <button
             id="menu-toggle"
             aria-label="Toggle navigation menu"
@@ -59,21 +53,16 @@ const isGlass = currentPath === "/en" || currentPath === "/he";
         <ul id="nav-links">
             {
                 props.links.map((link) => {
-                    const linkPath = link.href.replace(/\/$/, "");
-
-                    const isHome =
-                        linkPath === "/en" ||
-                        linkPath === "/he" ||
-                        linkPath === "";
-                    const isActive = isHome
-                        ? currentPath === linkPath
-                        : currentPath.startsWith(linkPath);
+                    const isActive =
+                        currentPath === link.href ||
+                        (link.href !== "/" &&
+                            currentPath.startsWith(link.href));
 
                     return (
                         <li>
                             <a
                                 href={link.href}
-                                class={isActive ? "active" : undefined}
+                                class:list={["basic", { active: isActive }]}
                             >
                                 {link.text}
                             </a>
@@ -85,108 +74,30 @@ const isGlass = currentPath === "/en" || currentPath === "/he";
     </nav>
 </header>
 
-<script>
-    const button = document.getElementById("menu-toggle");
-    const header = document.getElementById("main-header");
-
-    button?.addEventListener("click", () => {
-        const isOpen = header?.classList.toggle("menu-open");
-        button.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    });
-</script>
-
 <style>
     header {
-        background-color: var(--color-bg);
-        box-shadow:
-            0px 0px 4px oklch(0.7 0 0),
-            0px 0px 12px oklch(0.8 0 0);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        padding: 1rem 2rem;
-        transition:
-            background-color 0.3s ease,
-            backdrop-filter 0.3s ease;
-    }
-
-    header.glass {
-        background-color: rgba(255, 255, 255, 0.4); /* Fallback style */
-        background-color: oklch(from var(--color-bg, #ffffff) l c h / 0.7);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-    }
-
-    .nav-container {
+        grid-column: 1 / -1;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
-        margin: auto;
+        flex-direction: row;
     }
 
-    .site-logo {
-        font-weight: bold;
-        font-size: 1.25rem;
-        text-decoration: none;
-        color: var(--color-text);
+    nav {
+        display: flex;
+        flex-direction: row;
     }
 
     ul {
         display: flex;
-        gap: 1.5rem;
-        list-style: none;
+        flex-direction: row;
     }
 
     a {
-        text-decoration: none;
         color: var(--color-text);
-        font-size: 1rem;
-        transition: color 0.2s ease;
     }
-    a:hover,
-    a:focus {
+    a:hover {
         color: var(--color-blue);
     }
     a.active {
         font-weight: bold;
-        color: var(--color-blue);
-    }
-
-    button {
-        display: none;
-        background: none;
-        border: none;
-        color: var(--color-text);
-        cursor: pointer;
-        padding: 0.5rem;
-    }
-
-    @media (max-width: 700px) {
-        button {
-            display: block;
-        }
-
-        ul {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            inset-inline-start: 0;
-            width: 100%;
-            background-color: var(--color-bg);
-            padding: 1.5rem 2rem;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-            gap: 1.25rem;
-        }
-
-        header.glass ul {
-            background-color: oklch(from var(--color-bg) l c h / 0.95);
-            backdrop-filter: blur(12px);
-        }
-
-        header.menu-open ul {
-            display: flex;
-        }
     }
 </style>
