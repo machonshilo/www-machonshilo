@@ -22,7 +22,13 @@ const props =
 ---
 
 <Page title={props.title} description={props.description}>
-    <section style="place-self: center;">
+    <section>
         <h1>{props.title}</h1>
     </section>
 </Page>
+
+<style is:inline>
+    section {
+        place-self: center;
+    }
+</style>
