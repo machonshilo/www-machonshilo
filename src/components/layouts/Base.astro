@@ -1,7 +1,5 @@
 ---
-import { Font } from "astro:assets";
-import { ClientRouter } from "astro:transitions";
-import { getAbsoluteLocaleUrl } from "astro:i18n";
+import Head from "@/components/Head.astro";
 
 interface Props {
     title: string;
@@ -12,122 +10,13 @@ interface Props {
     authorTwitter?: string;
 }
 
-const {
-    title,
-    description,
-    imgSrc = "og-large-card.png",
-    imgAlt,
-    type = "website",
-    authorTwitter,
-} = Astro.props;
-
 const lang = Astro.currentLocale ?? "en";
-
-const translations = {
-    en: { siteName: "Machon Shilo" },
-    he: { siteName: "מכון שילה" },
-};
-
-const props =
-    translations[lang as keyof typeof translations] ?? translations.en;
-
-const basePath = Astro.url.pathname.replace(`/${Astro.currentLocale}`, "");
-const urlEn = getAbsoluteLocaleUrl("en", basePath);
-const urlHe = getAbsoluteLocaleUrl("he", basePath);
-
-const urlCanonical =
-    Astro.url.pathname == "/"
-        ? Astro.site
-        : getAbsoluteLocaleUrl(lang, basePath);
-
-const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/img/**/*.{jpeg,jpg,png,tiff,webp,gif}",
-);
-const imagePath = imgSrc.startsWith("/src/assets/img/")
-    ? imgSrc
-    : `/src/assets/img/${imgSrc}`;
-const imageLoader = images[imagePath];
-if (!imageLoader) {
-    throw new Error(
-        `"${imgSrc}" (resolved to "${imagePath}") does not exist in "/src/assets/img/"`,
-    );
-}
-const img = (await imageLoader()).default;
-
-import appleTouchIconPng from "@/assets/icons/apple-touch-icon.png";
-import faviconSvg from "@/assets/icons/favicon.svg";
-const faviconIcoSrc = "/favicon.ico";
-
-// const schema = {
-//     "@context": "https://schema.org",
-//     "@type": "WebSite",
-//     name: props.siteName,
-//     url: urlCanonical,
-// };
 ---
 
 <html lang={lang} dir={lang == "he" ? "rtl" : "ltr"}>
-    <head>
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, viewport-fit=cover"
-        />
-        <title>{title}</title>
-
-        <!-- <ClientRouter /> -->
-        <Font cssVariable="--font-frank" preload />
-        <Font cssVariable="--font-suez" preload />
-
+    <Head {...Astro.props}>
         <slot name="head" />
-
-        <meta name="description" content={description} />
-        <meta name="robots" content="max-image-preview:large" />
-
-        <link rel="canonical" href={urlCanonical} />
-        <link rel="alternate" hreflang="en" href={urlEn} />
-        <link rel="alternate" hreflang="he" href={urlHe} />
-        <link
-            rel="alternate"
-            hreflang="x-default"
-            href={Astro.url.pathname == "/" ? urlCanonical : urlEn}
-        />
-
-        <meta property="og:site_name" content={props.siteName} />
-        <meta property="og:type" content={type} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={urlCanonical} />
-        <meta property="og:image" content={img.src} />
-        <meta property="og:image:width" content={img.width.toString()} />
-        <meta property="og:image:height" content={img.height.toString()} />
-        <meta property="og:image:alt" content={imgAlt} />
-        <meta property="og:locale" content={lang == "he" ? "he_IL" : "en_US"} />
-        <meta
-            property="og:locale:alternate"
-            content={lang == "en" ? "he_IL" : "en_US"}
-        />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@MachonShilo" />
-        {
-            authorTwitter && (
-                <meta name="twitter:creator" content={authorTwitter} />
-            )
-        }
-
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href={appleTouchIconPng.src}
-        />
-        <link rel="icon" type="image/svg+xml" href={faviconSvg.src} />
-        <link rel="icon" type="image/x-icon" href={faviconIcoSrc} sizes="any" />
-
-        <link rel="manifest" href="/site.webmanifest" />
-
-        <!-- <script type="application/ld+json" set:html={JSON.stringify(schema)} /> -->
-    </head>
+    </Head>
     <body>
         <slot />
     </body>
