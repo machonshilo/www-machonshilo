@@ -1,0 +1,167 @@
+---
+import { Image } from "astro:assets";
+import ramon from "@/assets/img/ramon-small.jpg";
+---
+
+<div class="featured-container">
+    <article class="custom-featured-card">
+        <div class="card-content-side">
+            <!-- Metadata Row -->
+            <div class="card-metadata">
+                <span class="card-date">November 11, 2026</span>
+                <span class="card-separator">•</span>
+                <span class="card-read-time">8 min read</span>
+            </div>
+
+            <!-- Headline & Summary -->
+            <h1 class="card-title">Shall we do this?</h1>
+            <p class="card-description">
+                More text etc etc. Add a compelling subheadline here to engage
+                your users instantly and elevate the design.
+            </p>
+
+            <!-- Tag Pills -->
+            <div class="card-tags-row">
+                <a href="#" class="card-pill-tag">Trends</a>
+                <a href="#" class="card-pill-tag">Photography</a>
+                <a href="#" class="card-pill-tag">Film</a>
+            </div>
+        </div>
+
+        <!-- Image Container -->
+        <div class="card-image-side">
+            <Image src={ramon} alt="A descriptive fallback text" />
+        </div>
+    </article>
+</div>
+
+<style>
+    /* Scope everything strictly to avoid global theme overrides */
+    .featured-container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 3rem auto;
+        padding: 0 1.5rem;
+        box-sizing: border-box;
+    }
+
+    /* Main Card Frame */
+    .custom-featured-card {
+        display: flex;
+        background-color: #ffffff !important; /* Force pristine white background */
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        overflow: hidden;
+        width: 100%;
+        min-height: 400px;
+        box-sizing: border-box;
+    }
+
+    /* Left Text Block */
+    .card-content-side {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 2.5rem;
+        box-sizing: border-box;
+    }
+
+    /* Metadata Formatting */
+    .card-metadata {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 0.8rem;
+        color: #666666;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Main Headline Override to clean Sans-Serif */
+    .card-title {
+        font-family: "Helvetica Neue", Arial, sans-serif !important;
+        font-size: 2rem !important;
+        font-weight: 800 !important;
+        line-height: 1.2 !important;
+        color: #111111 !important;
+        margin: 0 0 1rem 0 !important;
+        text-align: left !important;
+    }
+
+    /* Body Paragraph */
+    .card-description {
+        font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #444444 !important;
+        margin: 0 0 2rem 0 !important;
+        text-align: left !important;
+    }
+
+    /* Tag Pills Layout */
+    .card-tags-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: auto;
+    }
+
+    .card-pill-tag {
+        font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-decoration: none !important;
+        color: #ffffff !important;
+        background-color: #111111 !important;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        transition: opacity 0.2s ease;
+    }
+
+    .card-pill-tag:hover {
+        opacity: 0.8;
+    }
+
+    /* Right Side Image Block */
+    .card-image-side {
+        flex: 1.4;
+        position: relative;
+        overflow: hidden;
+        background-color: #eee;
+    }
+
+    .card-image-side img {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important; /* Overrides your previous 450px restriction */
+        object-fit: cover !important;
+        display: block;
+    }
+
+    /* Desktop View Fix: Force horizontal splits */
+    @media (min-width: 769px) {
+        .custom-featured-card {
+            flex-direction: row !important;
+        }
+    }
+
+    /* Responsive Mobile Stack */
+    @media (max-width: 768px) {
+        .custom-featured-card {
+            flex-direction: column-reverse !important;
+        }
+
+        .card-content-side {
+            padding: 1.5rem;
+        }
+
+        .card-image-side {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+        }
+    }
+</style>

@@ -5,22 +5,30 @@ const currentPath = Astro.url.pathname;
 const translations = {
     en: {
         siteName: "Machon Shilo",
+        homeLink: {
+            href: "/en/",
+            text: "Machon Shilo",
+        },
         links: [
-            { href: "/en", text: "Home" },
-            { href: "/en/community", text: "Community" },
-            { href: "/en/ask", text: "Ask The Rabbi" },
-            { href: "/en/triennial", text: "Triennial Cycle" },
-            { href: "/en/donate", text: "Donate" },
+            { href: "/en/posts/", text: "Posts" },
+            { href: "/en/community/", text: "Community" },
+            { href: "/en/ask/", text: "Q&A" },
+            { href: "/en/triennial/", text: "Triennial Cycle" },
+            { href: "/en/donate/", text: "Donate" },
         ],
     },
     he: {
         siteName: "מכון שילה",
+        homeLink: {
+            href: "/he/",
+            text: "מכון שילה",
+        },
         links: [
-            { href: "/he", text: "בית" },
-            { href: "/he/community", text: "קהילה" },
-            { href: "/he/ask", text: "שאל את הרב" },
-            { href: "/he/triennial", text: "מחזור התלת שנתי" },
-            { href: "/he/donate", text: "לתרום" },
+            { href: "/he/posts/", text: "כתבות" },
+            { href: "/he/community/", text: "קהילה" },
+            { href: "/he/ask/", text: 'שו"ת' },
+            { href: "/he/triennial/", text: "מחזור התלת שנתי" },
+            { href: "/he/donate/", text: "לתרום" },
         ],
     },
 };
@@ -31,10 +39,14 @@ const props =
 
 <header>
     <nav>
+        <a href={props.homeLink.href} class="basic logo">
+            {props.homeLink.text}
+        </a>
+
         <button
             id="menu-toggle"
-            aria-label="Toggle navigation menu"
             aria-expanded="false"
+            aria-label="Toggle navigation menu"
         >
             <svg
                 width="1.5rem"
@@ -53,10 +65,11 @@ const props =
         <ul id="nav-links">
             {
                 props.links.map((link) => {
-                    const isActive =
-                        currentPath === link.href ||
-                        (link.href !== "/" &&
-                            currentPath.startsWith(link.href));
+                    const isExact = currentPath === link.href;
+                    const isNested =
+                        link.href !== `/${lang}/` &&
+                        currentPath.startsWith(link.href);
+                    const isActive = isExact || isNested;
 
                     return (
                         <li>
@@ -74,30 +87,125 @@ const props =
     </nav>
 </header>
 
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const toggle = document.querySelector("#menu-toggle");
+        const menu = document.querySelector("#nav-links");
+
+        toggle?.addEventListener("click", () => {
+            const expanded = toggle.getAttribute("aria-expanded") === "true";
+            toggle.setAttribute("aria-expanded", String(!expanded));
+        });
+
+        document.addEventListener("click", (event) => {
+            if (
+                !toggle?.contains(event.target as Node) &&
+                !menu?.contains(event.target as Node)
+            ) {
+                toggle?.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                toggle?.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 700) {
+                toggle?.setAttribute("aria-expanded", "false");
+            }
+        });
+    });
+</script>
+
 <style>
     header {
         grid-column: 1 / -1;
-        display: flex;
-        flex-direction: row;
+        position: sticky;
+        top: 0;
+        padding: var(--space-sm) var(--space-lg);
+        z-index: 1000;
+        background-color: oklch(from var(--color-bg) l c h / 0.9);
+        backdrop-filter: blur(10px);
     }
 
     nav {
         display: flex;
-        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: var(--max-width);
+        margin: 0 auto;
     }
 
-    ul {
-        display: flex;
-        flex-direction: row;
+    .logo {
+        font-weight: bold;
     }
 
     a {
         color: var(--color-text);
     }
-    a:hover {
-        color: var(--color-blue);
+
+    a:hover,
+    a:focus {
+        color: var(--color-primary-hover);
     }
+
     a.active {
         font-weight: bold;
+    }
+
+    button {
+        display: none;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+        gap: var(--space-md);
+    }
+
+    @media (max-width: 700px) {
+        button {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        ul {
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            inset-inline-end: var(--space-xs);
+            padding: var(--space-sm);
+            gap: var(--space-xs);
+            border-radius: var(--radius);
+            background-color: var(--color-bg);
+            box-shadow:
+                0 16px 40px 0 oklch(from var(--color-text) l c h / 0.08),
+                inset 0 1px 1px oklch(from var(--color-bg) 1 c h / 0.3);
+
+            display: none;
+            opacity: 0;
+            --direction-multiplier: 1;
+            transform: translateX(calc(10px * var(--direction-multiplier)));
+        }
+
+        :global([dir="rtl"]) ul {
+            --direction-multiplier: -1;
+        }
+
+        button[aria-expanded="true"] ~ #nav-links {
+            display: flex;
+            opacity: 1;
+            transform: translateX(0);
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+        }
     }
 </style>

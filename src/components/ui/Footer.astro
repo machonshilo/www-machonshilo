@@ -1,19 +1,6 @@
 ---
 const lang = Astro.currentLocale ?? "en";
 
-const languages = {
-    en: "English",
-    he: "עברית",
-};
-
-const { pathname } = Astro.url;
-
-function getLocalizedPath(targetLang: string) {
-    return pathname.replace(new RegExp(`^/${lang}`), `/${targetLang}`);
-}
-
-const currentYear = new Date().getFullYear();
-
 const translations = {
     en: {
         copyright: "All rights reserved.",
@@ -29,23 +16,7 @@ const props =
     translations[lang as keyof typeof translations] ?? translations.en;
 ---
 
-<footer>
-    <div>
-        <label for="lang-select">{props.chooseLanguage}</label>
-        <select id="lang-select" onchange="window.location.href = this.value;">
-            {
-                Object.entries(languages).map(([code, name]) => (
-                    <option
-                        value={getLocalizedPath(code)}
-                        selected={code === lang}
-                    >
-                        {name}
-                    </option>
-                ))
-            }
-        </select>
-    </div>
-</footer>
+<footer></footer>
 
 <style>
     footer {

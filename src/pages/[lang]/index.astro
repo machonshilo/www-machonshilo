@@ -1,9 +1,13 @@
 ---
 import { i18n } from "astro:config/client";
-import { Image, getImage } from "astro:assets"; // 1. Added getImage
 
 import Page from "@/components/layouts/Page.astro";
-import ramon from "@/assets/img/ramon-small.jpg";
+
+import FeaturedPost from "@/components/ui/FeaturedPost.astro";
+import SeasonalPosts from "@/components/ui/SeasonalPosts.astro";
+import TriennialReading from "@/components/ui/TriennialReading.astro";
+import RecentPosts from "@/components/ui/RecentPosts.astro";
+import MeetTheRabbi from "@/components/ui/MeetTheRabbi.astro";
 
 export async function getStaticPaths() {
     const locales = i18n?.locales || [];
@@ -16,24 +20,36 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 
 const translations = {
-    en: { title: "Home", description: "For Those Who Dare To Think" },
-    he: { title: "בית", description: "" },
+    en: {
+        title: "Home",
+        description: "For Those Who Dare To Think",
+        siteName: "Machon Shilo",
+    },
+    he: {
+        title: "Home",
+        description: "For Those Who Dare To Think",
+        siteName: "Machon Shilo",
+    },
 };
 
 const props = translations[lang as keyof typeof translations];
-
-const optimizedHero = await getImage({ src: ramon });
 ---
 
 <Page title={props.title} description={props.description}>
-    <section>
-        <h1>{props.title}</h1>
-        <span>{props.description}</span>
-    </section>
+    <FeaturedPost />
+    <SeasonalPosts />
+    <TriennialReading />
+    <RecentPosts />
+    <MeetTheRabbi />
 </Page>
 
 <style>
     :global(main) {
         grid-column: 2 / -2;
+    }
+    :global(section) {
+        background-color: var(--color-bg-card);
+        margin: var(--space-sm);
+        padding: var(--space-sm);
     }
 </style>

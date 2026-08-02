@@ -24,13 +24,15 @@ const lang = Astro.currentLocale ?? "en";
 
 <style is:global>
     :root {
-        --color-bg: oklch(0.986 0.014 84.583);
-        --color-text: oklch(0.189 0.015 25.858);
-        --color-blue: oklch(0.428 0.172 259.702);
+        --color-bg-light: oklch(0.985 0.01 84.583);
+        --color-bg: oklch(0.95 0.015 84.583);
+        --color-bg-card: oklch(0.88 0.02 84.583);
 
-        --color-bg-card: oklch(0.7 0.02 84.583);
         --color-text-muted: oklch(0.35 0.01 25.858);
-        --color-blue-light: oklch(0.7 0.1 259.702);
+        --color-text: oklch(0.189 0.015 25.858);
+
+        --color-primary: oklch(0.428 0.172 259.702);
+        --color-primary-hover: oklch(0.35 0.16 259.702);
 
         --font-size-xs: clamp(0.7813rem, 0.7736rem + 0.0341vw, 0.8rem);
         --font-size-sm: clamp(0.9375rem, 0.9119rem + 0.1136vw, 1rem);
@@ -41,6 +43,11 @@ const lang = Astro.currentLocale ?? "en";
         --font-size-3xl: clamp(2.3328rem, 2.0387rem + 1.3072vw, 3.0518rem);
         --font-size-4xl: clamp(2.7994rem, 2.384rem + 1.8461vw, 3.8147rem);
 
+        --line-height: calc(1em + 0.5rem);
+
+        --max-width: 1200px;
+        --max-width-article: 65rch;
+
         --space-3xs: clamp(0.3125rem, 0.3125rem + 0vw, 0.3125rem);
         --space-2xs: clamp(0.5625rem, 0.5369rem + 0.1136vw, 0.625rem);
         --space-xs: clamp(0.875rem, 0.8494rem + 0.1136vw, 0.9375rem);
@@ -50,22 +57,19 @@ const lang = Astro.currentLocale ?? "en";
         --space-xl: clamp(3.375rem, 3.2216rem + 0.6818vw, 3.75rem);
         --space-2xl: clamp(4.5rem, 4.2955rem + 0.9091vw, 5rem);
         --space-3xl: clamp(6.75rem, 6.4432rem + 1.3636vw, 7.5rem);
+
+        --radius: 4px;
     }
 
     *,
     *::before,
     *::after {
         box-sizing: border-box;
-        line-height: calc(1em + 0.5rem);
-    }
 
-    *:not(dialog) {
-        margin: 0;
-        padding: 0;
-    }
-
-    :target {
-        scroll-margin: var(--space-lg);
+        &:not(dialog) {
+            margin: 0;
+            padding: 0;
+        }
     }
 
     html {
@@ -74,7 +78,6 @@ const lang = Astro.currentLocale ?? "en";
         -webkit-text-size-adjust: none;
         text-size-adjust: none;
         -webkit-font-smoothing: antialiased;
-        font-size: var(--font-size-md);
 
         &.translated-rtl {
             direction: rtl;
@@ -82,10 +85,8 @@ const lang = Astro.currentLocale ?? "en";
         &.translated-ltr {
             direction: ltr;
         }
-    }
 
-    @media (prefers-reduced-motion: no-preference) {
-        html {
+        @media (prefers-reduced-motion: no-preference) {
             interpolate-size: allow-keywords;
             &:focus-within {
                 scroll-behavior: smooth;
@@ -94,19 +95,20 @@ const lang = Astro.currentLocale ?? "en";
     }
 
     body {
+        min-height: 100vh;
         display: grid;
-        grid-template-rows: min-content 1fr;
         grid-template-columns:
             var(--space-md)
             1fr
-            min(65rch, 100% - 2 * var(--space-md))
+            min(var(--max-width-article), 100% - 2 * var(--space-md))
             1fr
             var(--space-md);
 
-        min-height: 100vh;
         background-color: var(--color-bg);
 
         font-family: var(--font-frank);
+        font-size: var(--font-size-md);
+        line-height: var(--line-height);
         color: var(--color-text);
     }
 
@@ -145,9 +147,12 @@ const lang = Astro.currentLocale ?? "en";
     }
 
     a {
-        color: var(--color-blue);
+        color: var(--color-primary);
         text-decoration: none;
-        background-image: linear-gradient(var(--color-blue), var(--color-blue));
+        background-image: linear-gradient(
+            var(--color-primary),
+            var(--color-primary)
+        );
         background-size: 0% 4px;
         background-repeat: no-repeat;
         background-position: left bottom;
@@ -173,6 +178,7 @@ const lang = Astro.currentLocale ?? "en";
     svg {
         display: block;
         max-width: 100%;
+        height: auto;
     }
 
     input,

@@ -4,8 +4,8 @@ import Base from "@/components/layouts/Base.astro";
 
 <Base title="Machon Shilo" description="Torah for those who dare to think.">
     <ul>
-        <li><a href="/en" class="basic">English</a></li>
-        <li dir="rtl"><a href="/he" class="basic">עברית</a></li>
+        <li><a href="/en/" class="basic">English</a></li>
+        <li dir="rtl"><a href="/he/" class="basic">עברית</a></li>
     </ul>
 </Base>
 
@@ -13,7 +13,7 @@ import Base from "@/components/layouts/Base.astro";
     ul {
         list-style: none;
         text-align: center;
-        align-self: center;
+        place-self: center;
         font-size: var(--font-size-2xl);
     }
     a {
@@ -23,6 +23,6 @@ import Base from "@/components/layouts/Base.astro";
     }
     a:hover {
         transform: scale(1.15);
-        color: var(--color-blue);
+        color: var(--color-primary);
     }
 </style>
