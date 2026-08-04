@@ -7,8 +7,9 @@
     "serve": "astro build && astro preview"
   },
   "dependencies": {
+    "@sveltia/cms": "^0.178.0",
     "astro": "^7.1.6",
-    "wrangler": "^4.115.0"
+    "wrangler": "^4.118.0"
   },
   "devDependencies": {
     "@types/bun": "latest"

@@ -72,6 +72,15 @@ const lang = Astro.currentLocale ?? "en";
         }
     }
 
+    :focus-visible {
+        outline: 3px dashed var(--color-primary-hover);
+        outline-offset: 4px;
+    }
+
+    main:focus {
+        outline: none;
+    }
+
     html {
         color-scheme: light dark;
         scrollbar-gutter: stable;

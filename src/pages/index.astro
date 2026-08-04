@@ -20,8 +20,10 @@ import Base from "@/components/layouts/Base.astro";
         color: var(--color-text);
         display: inline-block;
         transition: transform 0.3s ease;
+        padding: var(--space-sm);
     }
-    a:hover {
+    a:hover,
+    a:focus {
         transform: scale(1.15);
         color: var(--color-primary);
     }
