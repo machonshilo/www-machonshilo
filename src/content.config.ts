@@ -52,8 +52,8 @@ const sources = defineCollection({
 });
 
 // blog, article, audio shiur, in person shiur, qna, etc
-const form = defineCollection({
-  loader: glob({ base: "./src/content/form", pattern: "**/*.json" }),
+const forms = defineCollection({
+  loader: glob({ base: "./src/content/forms", pattern: "**/*.json" }),
   schema: z.object({
     slug: z.string(),
     name: z.string(),
@@ -83,7 +83,7 @@ const posts = defineCollection({
       }),
 
       author: reference("authors").optional(),
-      form: reference("form"),
+      forms: z.array(reference("forms")),
       categories: z.array(reference("categories")).optional(),
       tags: z.array(reference("tags")).optional(),
 

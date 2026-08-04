@@ -37,23 +37,205 @@ const config: CmsConfig = {
     preview: false,
   },
 
+  // https://fonts.google.com/icons?icon.set=Material+Symbols&icon.platform=web
+  // https://sveltiacms.app/en/docs/string-transformations#string-transformations
   collections: [
+    {
+      name: "authors",
+      label: "Authors",
+      label_singular: "Author",
+      folder: "src/content/authors",
+      slug: "{{uuid_short}}",
+      i18n: true,
+      fields: [
+        {
+          name: "slug",
+          label: "URL",
+          i18n: "duplicate",
+        },
+        {
+          name: "name",
+          label: "Name",
+          i18n: "duplicate",
+        },
+        {
+          name: "avatar",
+          label: "Avatar",
+          widget: "image",
+          i18n: "duplicate",
+          required: false,
+        },
+      ],
+    },
+    {
+      name: "tags",
+      label: "Tags",
+      label_singular: "Tag",
+      folder: "src/content/authors",
+      slug: "{{uuid_short}}",
+      i18n: true,
+      fields: [
+        {
+          name: "slug",
+          label: "URL",
+          i18n: "duplicate",
+        },
+        {
+          name: "name",
+          label: "Name",
+          i18n: "duplicate",
+        },
+      ],
+    },
+    {
+      name: "categories",
+      label: "Categories",
+      label_singular: "Category",
+      folder: "src/content/categories",
+      slug: "{{uuid_short}}",
+      i18n: true,
+      fields: [
+        {
+          name: "slug",
+          label: "URL",
+          i18n: "duplicate",
+        },
+        {
+          name: "name",
+          label: "Name",
+          i18n: "duplicate",
+        },
+        {
+          name: "parent",
+          label: "Parent",
+          widget: "relation",
+          i18n: "duplicate",
+          collection: "categories",
+          display_fields: ["name"],
+          required: false,
+        },
+      ],
+    },
+    {
+      name: "series",
+      label: "Series",
+      folder: "src/content/series",
+      slug: "{{uuid_short}}",
+      i18n: true,
+      fields: [
+        {
+          name: "slug",
+          label: "URL",
+          i18n: "duplicate",
+        },
+        {
+          name: "name",
+          label: "Name",
+          i18n: "duplicate",
+        },
+      ],
+    },
+    {
+      name: "sources",
+      label: "Source",
+      label_singular: "Source",
+      folder: "src/content/sources",
+      slug: "{{uuid_short}}",
+      i18n: true,
+      fields: [
+        {
+          name: "slug",
+          label: "URL",
+          i18n: "duplicate",
+        },
+        {
+          name: "name",
+          label: "Name",
+          i18n: "duplicate",
+        },
+        {
+          name: "parent",
+          label: "Parent",
+          widget: "relation",
+          i18n: "duplicate",
+          collection: "sources",
+          display_fields: ["name"],
+          required: false,
+        },
+      ],
+    },
+    {
+      name: "forms",
+      label: "Forms",
+      label_singular: "Form",
+      folder: "src/content/forms",
+      slug: "{{uuid_short}}",
+      i18n: true,
+      fields: [
+        {
+          name: "slug",
+          label: "URL",
+          i18n: "duplicate",
+        },
+        {
+          name: "name",
+          label: "Name",
+          i18n: "duplicate",
+        },
+      ],
+    },
     {
       name: "posts",
       label: "Posts",
-      label_singular: "Posts",
-      folder: "src/content/posts",
+      label_singular: "Post",
+      folder: "src/content/post",
+      slug: "{{uuid_short}}",
       i18n: true,
       fields: [
+        {
+          name: "slug",
+          label: "URL",
+          i18n: "duplicate",
+        },
         {
           name: "title",
           label: "Title",
           i18n: "duplicate",
         },
         {
-          name: "body",
-          label: "Body",
-          widget: "richtext",
+          name: "description",
+          label: "Description",
+          widget: "text",
+          minlength: 10,
+          maxlength: 300,
+          i18n: "duplicate",
+        },
+
+        {
+          name: "datePublished",
+          label: "Date published",
+          widget: "datetime",
+          type: "date",
+          i18n: "duplicate",
+        },
+        {
+          name: "dateUpdated",
+          label: "Date updated",
+          widget: "datetime",
+          type: "date",
+          i18n: "duplicate",
+          required: false,
+        },
+        {
+          name: "status",
+          label: "Status",
+          widget: "select",
+          options: [
+            { label: "Draft", value: "draft" },
+            { label: "Published", value: "published" },
+            { label: "Archived", value: "archived" },
+          ],
+          default: "draft",
           i18n: "duplicate",
         },
       ],
